@@ -14,15 +14,15 @@ import 'package:pl_calculation/features/calculate/domain/entities/calculate_enti
 typedef OnFinished<ParamsPasutri> = void Function(ParamsPasutri item);
 typedef OnBack<ParamsPasutri> = void Function(ParamsPasutri item);
 
-class IsiDataPage extends StatefulWidget  {
+class ResultPage extends StatefulWidget  {
 
-  const IsiDataPage({Key? key }) : super(key: key);
+  const ResultPage({Key? key }) : super(key: key);
 
   @override
-  _IsiDataPage createState() => _IsiDataPage();
+  _ResultPage createState() => _ResultPage();
 }
 
-class _IsiDataPage extends State<IsiDataPage> {
+class _ResultPage extends State<ResultPage> {
 
   final _formKey = GlobalKey<FormState>();
 

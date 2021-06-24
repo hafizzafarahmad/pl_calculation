@@ -43,6 +43,41 @@ class CalculateEntity{
   @HiveField(18)
   String? gearboxLoss;
 
+  @HiveField(19)
+  String? methane;
+  @HiveField(20)
+  String? ethane;
+  @HiveField(21)
+  String? propane;
+  @HiveField(22)
+  String? iButane;
+  @HiveField(23)
+  String? nButane;
+  @HiveField(24)
+  String? iPetane;
+  @HiveField(25)
+  String? nPetane;
+  @HiveField(26)
+  String? hexane;
+  @HiveField(27)
+  String? nitrogen;
+  @HiveField(28)
+  String? carboneMonoxide;
+  @HiveField(29)
+  String? carbonDioxide;
+  @HiveField(30)
+  String? water;
+  @HiveField(31)
+  String? hydrogenSulfide;
+  @HiveField(32)
+  String? hydrogen;
+  @HiveField(33)
+  String? helium;
+  @HiveField(34)
+  String? oxygen;
+  @HiveField(35)
+  String? argon;
+
 
   CalculateEntity({
     this.barometricPressure,
@@ -63,6 +98,24 @@ class CalculateEntity{
     this.generatorLoss,
     this.fixedHeadLoss,
     this.variableHeatLoss,
-    this.gearboxLoss
+    this.gearboxLoss,
+
+    this.methane,
+    this.ethane,
+    this.propane,
+    this.iButane,
+    this.nButane,
+    this.iPetane,
+    this.nPetane,
+    this.hexane,
+    this.nitrogen,
+    this.carboneMonoxide,
+    this.carbonDioxide,
+    this.water,
+    this.hydrogenSulfide,
+    this.hydrogen,
+    this.helium,
+    this.oxygen,
+    this.argon,
   });
 }
