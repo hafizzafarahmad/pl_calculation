@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pigment/pigment.dart';
-import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'colors.dart';
@@ -46,11 +45,6 @@ redAlertToast(String message){
 //HideKeyboard
 hideKeyboard(BuildContext context){
   FocusScope.of(context).requestFocus(new FocusNode());
-}
-
-//Loading
-loadingDialog(BuildContext context){
-  return ProgressDialog(context, type: ProgressDialogType.Normal);
 }
 
 Widget shimmerLine({double? width, double height = 15}){

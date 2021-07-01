@@ -36,13 +36,30 @@ class CalculateEntityAdapter extends TypeAdapter<CalculateEntity> {
       fixedHeadLoss: fields[16] as String?,
       variableHeatLoss: fields[17] as String?,
       gearboxLoss: fields[18] as String?,
+      methane: fields[19] as String?,
+      ethane: fields[20] as String?,
+      propane: fields[21] as String?,
+      iButane: fields[22] as String?,
+      nButane: fields[23] as String?,
+      iPetane: fields[24] as String?,
+      nPetane: fields[25] as String?,
+      hexane: fields[26] as String?,
+      nitrogen: fields[27] as String?,
+      carboneMonoxide: fields[28] as String?,
+      carbonDioxide: fields[29] as String?,
+      water: fields[30] as String?,
+      hydrogenSulfide: fields[31] as String?,
+      hydrogen: fields[32] as String?,
+      helium: fields[33] as String?,
+      oxygen: fields[34] as String?,
+      argon: fields[35] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, CalculateEntity obj) {
     writer
-      ..writeByte(19)
+      ..writeByte(36)
       ..writeByte(0)
       ..write(obj.barometricPressure)
       ..writeByte(1)
@@ -80,7 +97,41 @@ class CalculateEntityAdapter extends TypeAdapter<CalculateEntity> {
       ..writeByte(17)
       ..write(obj.variableHeatLoss)
       ..writeByte(18)
-      ..write(obj.gearboxLoss);
+      ..write(obj.gearboxLoss)
+      ..writeByte(19)
+      ..write(obj.methane)
+      ..writeByte(20)
+      ..write(obj.ethane)
+      ..writeByte(21)
+      ..write(obj.propane)
+      ..writeByte(22)
+      ..write(obj.iButane)
+      ..writeByte(23)
+      ..write(obj.nButane)
+      ..writeByte(24)
+      ..write(obj.iPetane)
+      ..writeByte(25)
+      ..write(obj.nPetane)
+      ..writeByte(26)
+      ..write(obj.hexane)
+      ..writeByte(27)
+      ..write(obj.nitrogen)
+      ..writeByte(28)
+      ..write(obj.carboneMonoxide)
+      ..writeByte(29)
+      ..write(obj.carbonDioxide)
+      ..writeByte(30)
+      ..write(obj.water)
+      ..writeByte(31)
+      ..write(obj.hydrogenSulfide)
+      ..writeByte(32)
+      ..write(obj.hydrogen)
+      ..writeByte(33)
+      ..write(obj.helium)
+      ..writeByte(34)
+      ..write(obj.oxygen)
+      ..writeByte(35)
+      ..write(obj.argon);
   }
 
   @override
