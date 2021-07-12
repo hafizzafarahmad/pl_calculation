@@ -8,6 +8,7 @@ import 'package:pigment/pigment.dart';
 import 'package:pl_calculation/features/calculate/domain/entities/calculate_entity.dart';
 import 'package:pl_calculation/features/listResult/presentation/bloc/list_result_bloc.dart';
 import 'package:pl_calculation/features/listResult/presentation/pages/list_result_page.dart';
+import 'package:pl_calculation/features/result/presentation/bloc/result_bloc.dart';
 
 import 'core/platform/colors.dart';
 import 'dependency_injection.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider<ListResultBloc>(create: (BuildContext context) => sl<ListResultBloc>()),
+          BlocProvider<ResultBloc>(create: (BuildContext context) => sl<ResultBloc>()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

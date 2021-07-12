@@ -1,6 +1,9 @@
 
+import 'package:excel/excel.dart';
+import 'package:flutter/services.dart';
 import 'package:pl_calculation/features/calculate/domain/entities/calculate_entity.dart';
 import 'package:pl_calculation/features/result/data/models/list_notification_model.dart';
+import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 
 abstract class ResultLocalDataSource{
   Future<ResultModel> getResult(CalculateEntity calculateEntity);
@@ -9,7 +12,7 @@ abstract class ResultLocalDataSource{
 class ResultLocalDataSourceImpl implements ResultLocalDataSource{
 
   @override
-  Future<ResultModel> getResult(CalculateEntity calculateEntity) {
+  Future<ResultModel> getResult(CalculateEntity calculateEntity)  async {
     ///Humidity Calculation
     double vaporPressure = 0.6705;
 
@@ -40,8 +43,55 @@ class ResultLocalDataSourceImpl implements ResultLocalDataSource{
 
     double totalA14 = N2A14 + O2A14 + CO2A14 + H2OA14 + ARA14; ///average molecular weight [ MW dry air]
 
-    throw UnimplementedError();
-  }
+    ///FUEL GAS COMBUSTION CALCULATION
+    double fuelGasMassFlow = double.parse(calculateEntity.gTFuelFlow!);
+    //C2 - C4
+    double methaneC2 = double.parse(calculateEntity.methane!); double methaneC3 = 16.04246; double methaneC4 = methaneC2 * methaneC3;
+    double ethaneC2 = double.parse(calculateEntity.methane!); double ethaneC3 = 16.04246; double ethaneC4 = ethaneC2 * ethaneC3;
+    double propaneC2 = double.parse(calculateEntity.methane!); double propaneC3 = 16.04246; double propaneC4 = propaneC2 * propaneC3;
+    double iButaneC2 = double.parse(calculateEntity.methane!); double iButaneC3 = 16.04246; double iButaneC4 = iButaneC2 * iButaneC3;
+    double nButaneC2 = double.parse(calculateEntity.methane!); double nButaneC3 = 16.04246; double nButaneC4 = nButaneC2 * nButaneC3;
+    double iPetaneC2 = double.parse(calculateEntity.methane!); double iPetaneC3 = 16.04246; double iPetaneC4 = iPetaneC2 * iPetaneC3;
+    double nPetaneC2 = double.parse(calculateEntity.methane!); double nPetaneC3 = 16.04246; double nPetaneC4 = nPetaneC2 * nPetaneC3;
+    double hexaneC2 = double.parse(calculateEntity.methane!); double hexaneC3 = 16.04246; double hexaneC4 = hexaneC2 * hexaneC3;
+    double nitrogenC2 = double.parse(calculateEntity.methane!); double nitrogenC3 = 16.04246; double nitrogenC4 = nitrogenC2 * nitrogenC3;
+    double carboneMonoxideC2 = double.parse(calculateEntity.methane!); double carboneMonoxideC3 = 16.04246; double carboneMonoxideC4 = carboneMonoxideC2 * carboneMonoxideC3;
+    double carbonDioxideC2 = double.parse(calculateEntity.methane!); double carbonDioxideC3 = 16.04246; double carbonDioxideC4 = carbonDioxideC2 * carbonDioxideC3;
+    double waterC2 = double.parse(calculateEntity.methane!); double waterC3 = 16.04246; double waterC4 = waterC2 * waterC3;
+    double hydrogenSulfideC2 = double.parse(calculateEntity.methane!); double hydrogenSulfideC3 = 16.04246; double hydrogenSulfideC4 = hydrogenSulfideC2 * hydrogenSulfideC3;
+    double hydrogenC2 = double.parse(calculateEntity.methane!); double hydrogenC3 = 16.04246; double hydrogenC4 = hydrogenC2 * hydrogenC3;
+    double heliumC2 = double.parse(calculateEntity.methane!); double heliumC3 = 16.04246; double heliumC4 = heliumC2 * heliumC3;
+    double oxygenC2 = double.parse(calculateEntity.methane!); double oxygenC3 = 16.04246; double oxygenC4 = oxygenC2 * oxygenC3;
+    double argonC2 = double.parse(calculateEntity.methane!); double argonC3 = 16.04246; double argonC4 = argonC2 * argonC3;
+    double heptaneC2 = double.parse(calculateEntity.methane!); double heptaneC3 = 16.04246; double heptaneC4 = heptaneC2 * heptaneC3;
 
+    double averageMolarWeight = methaneC4 + ethaneC4 + propaneC4 + iButaneC4 + nButaneC4 + iPetaneC4 + nPetaneC4
+    + hexaneC4 + nitrogenC4 + carboneMonoxideC4 + carbonDioxideC4 + waterC4 + hydrogenSulfideC4 + hydrogenC4
+    + heliumC4 + oxygenC4 + argonC4 + heptaneC4; /// sum C4
+    double fuelGasMolarFlow = fuelGasMassFlow/averageMolarWeight;
+
+
+
+
+
+    // ByteData data = await rootBundle.load("assets/data/data_excel.xlsx");
+    // var bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    // var excel = Excel.decodeBytes(bytes);
+    // Sheet sheetObject = excel['ASME PTC 22'];
+    // var cell = sheetObject.cell(CellIndex.indexByString("D156"));
+    // print(cell);
+
+
+    // for (var table in excel.tables.keys) {
+    //   print(table); //sheet Name
+    //
+    //   // print(excel.tables[table]!.maxCols);
+    //   // print(excel.tables[table]!.maxRows);
+    //   // for (var row in excel.tables[table]!.rows) {
+    //   //   print("$row");
+    //   // }
+    // }
+    return ResultModel();
+  }
 
 }

@@ -2,6 +2,7 @@
 
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:pigment/pigment.dart';
 import 'package:pl_calculation/core/platform/colors.dart';
@@ -9,6 +10,8 @@ import 'package:pl_calculation/core/platform/component.dart';
 import 'package:pl_calculation/core/platform/format_date.dart';
 import 'package:pl_calculation/core/platform/scroll_behavior.dart';
 import 'package:pl_calculation/features/calculate/domain/entities/calculate_entity.dart';
+import 'package:pl_calculation/features/result/presentation/bloc/result_bloc.dart';
+import 'package:pl_calculation/features/result/presentation/bloc/result_event.dart';
 
 typedef OnFinished<ParamsPasutri> = void Function(ParamsPasutri item);
 typedef OnBack<ParamsPasutri> = void Function(ParamsPasutri item);
@@ -43,6 +46,7 @@ class _ResultPage extends State<ResultPage> {
 
   @override
   void initState() {
+    context.read<ResultBloc>().add(GetResultEvent(context,  widget.calculateEntity!));
     super.initState();
   }
 

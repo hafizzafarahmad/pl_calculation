@@ -71,6 +71,8 @@ dependencies:
   dotted_border: ^2.0.0
   #expanded
   expandable: ^5.0.1
+  excel: any
+  syncfusion_flutter_xlsio: ^19.2.46-beta
 
 dev_dependencies:
   flutter_test:
@@ -94,6 +96,7 @@ flutter:
     - assets/icons/
     - assets/information/
     - assets/lineAwesome/
+    - assets/data/
 
   fonts:
     - family: Poppins
