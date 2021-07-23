@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:pattern_formatter/numeric_formatter.dart';
 import 'package:pigment/pigment.dart';
@@ -10,6 +11,8 @@ import 'package:pl_calculation/core/platform/colors.dart';
 import 'package:pl_calculation/core/platform/scroll_behavior.dart';
 import 'package:pl_calculation/core/styles/inputStyle.dart';
 import 'package:pl_calculation/features/calculate/domain/entities/calculate_entity.dart';
+import 'package:pl_calculation/features/result/presentation/bloc/result_bloc.dart';
+import 'package:pl_calculation/features/result/presentation/bloc/result_event.dart';
 import 'package:pl_calculation/features/result/presentation/pages/index_result.dart';
 
 typedef OnFinished<ParamsPasutri> = void Function(ParamsPasutri item);
@@ -805,6 +808,49 @@ class _IsiDataPage extends State<IsiDataPage> {
                             ),
                             onPressed: () {
                               if(_formKey.currentState!.validate()){
+                                context.read<ResultBloc>().add(GetResultEvent(
+                                  context: context,
+                                  calculateEntity: CalculateEntity(
+                                    barometricPressure: _baroPressureInput.text,
+                                    inletDryBulbTemperature: _dryTempInput.text,
+                                    inletWetBulbTemperature: _wetTempInput.text,
+                                    inletRelativeHumidity: _relativeHumidityInput.text,
+                                    gTFuelFlow: _gtFuelInput.text,
+                                    fuelTemperature: _fuelTempInput.text,
+                                    injectionSteamFlow: _injectSteamInput.text,
+                                    temperature: _tempInput.text,
+                                    pressure: _pressureInput.text,
+                                    phasaWaterSteam: _phasaOWaterInput.text,
+                                    comprresorExtractionAir: _comprresExtAirInput.text,
+                                    extractionAirTemperature: _extAirTempInput.text,
+                                    refTemperatureEnthalpy: _refTempInput.text,
+                                    exhaustOutletTemperature: _exhOutTempInput.text,
+                                    gTPowerOutput: _gtPowerOutInput.text,
+                                    generatorLoss: _genLossInput.text,
+                                    gearboxLoss: _gearLossInput.text,
+                                    fixedHeadLoss: _fixedHeadLossInput.text,
+                                    variableHeatLoss: _varHeatLossInput.text,
+
+                                    methane: _methaneInput.text,
+                                    ethane: _ethaneInput.text,
+                                    propane: _propaneInput.text,
+                                    iButane: _iButaneInput.text,
+                                    nButane: _nButaneInput.text,
+                                    iPetane: _iPetaneInput.text,
+                                    nPetane: _nPetaneInput.text,
+                                    hexane: _hexaneInput.text,
+                                    nitrogen: _nitrogenInput.text,
+                                    carboneMonoxide: _carboneMonoxideInput.text,
+                                    carbonDioxide: _carbonDioxideInput.text,
+                                    water: _waterInput.text,
+                                    hydrogenSulfide: _hydrogenSulfideInput.text,
+                                    hydrogen: _hydrogenInput.text,
+                                    helium: _heliumInput.text,
+                                    oxygen: _oxygenInput.text,
+                                    argon: _argonInput.text,
+                                  )
+                                ));
+
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => IndexResult(
                                     calculateEntity: CalculateEntity(
                                       barometricPressure: _baroPressureInput.text,

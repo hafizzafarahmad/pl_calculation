@@ -10,12 +10,12 @@ abstract class ResultEvent extends Equatable {
 }
 
 class GetResultEvent extends ResultEvent{
-  final BuildContext context;
-  final CalculateEntity calculateEntity;
+  final BuildContext? context;
+  final CalculateEntity? calculateEntity;
 
-  GetResultEvent(this.context, this.calculateEntity);
+  GetResultEvent({this.context, this.calculateEntity});
 
   @override
-  List<Object> get props => [context, calculateEntity];
+  List<Object> get props => [context!, calculateEntity!];
 }
 

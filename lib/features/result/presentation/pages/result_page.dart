@@ -5,13 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:pigment/pigment.dart';
+import 'package:pl_calculation/core/error/error_page.dart';
 import 'package:pl_calculation/core/platform/colors.dart';
 import 'package:pl_calculation/core/platform/component.dart';
 import 'package:pl_calculation/core/platform/format_date.dart';
 import 'package:pl_calculation/core/platform/scroll_behavior.dart';
 import 'package:pl_calculation/features/calculate/domain/entities/calculate_entity.dart';
+import 'package:pl_calculation/features/result/domain/entities/result_entity.dart';
 import 'package:pl_calculation/features/result/presentation/bloc/result_bloc.dart';
 import 'package:pl_calculation/features/result/presentation/bloc/result_event.dart';
+import 'package:pl_calculation/features/result/presentation/bloc/result_state.dart';
 
 typedef OnFinished<ParamsPasutri> = void Function(ParamsPasutri item);
 typedef OnBack<ParamsPasutri> = void Function(ParamsPasutri item);
@@ -44,9 +47,10 @@ class _ResultPage extends State<ResultPage> {
   }
 
 
+
+
   @override
   void initState() {
-    context.read<ResultBloc>().add(GetResultEvent(context,  widget.calculateEntity!));
     super.initState();
   }
 
@@ -73,7 +77,28 @@ class _ResultPage extends State<ResultPage> {
         body: Container(
           height: autoSizedHeight(context, 1),
           padding: EdgeInsets.symmetric(horizontal: 15,vertical: 20),
-          child: _mainBody(),
+          child:  BlocBuilder<ResultBloc, ResultState>(
+            builder: (context, state){
+              print(state);
+              ///LoadingKontakState
+              if(state is LoadingResultState){
+                return Center(child: CircularProgressIndicator(),);
+              } else if (state is ResultRetrievedState){
+                return _mainBody(state.resultEntity!);
+              } else if (state is ErrorResultState){
+                return Container(
+                    width: autoSizedWidth(context, 1),
+                    height: autoSizedHeight(context, 0.75),
+                    padding: EdgeInsets.symmetric(vertical: 30),
+                    child: ErrorPage(messages: state.messages, onTap: () {
+                      // _onRefresh();
+                    },)
+                );
+              } else {
+                return Container();
+              }
+            },
+          ),
         )
 
 
@@ -81,7 +106,7 @@ class _ResultPage extends State<ResultPage> {
   }
 
 
-  Widget _mainBody(){
+  Widget _mainBody(ResultEntity resultEntity){
     return ScrollConfiguration(
         behavior: MyScrollBehavior(),
         child: SingleChildScrollView(
@@ -97,7 +122,7 @@ class _ResultPage extends State<ResultPage> {
                 ),
                 SizedBox(height: 10,),
                 Divider(thickness: 1,),
-    ///INPUTED DATA
+                ///INPUTED DATA
                 ExpandablePanel(
                 theme: ExpandableThemeData(
                     headerAlignment: ExpandablePanelHeaderAlignment.center,
@@ -209,7 +234,7 @@ class _ResultPage extends State<ResultPage> {
                 ),
                 Divider(thickness: 1,),
                 SizedBox(height: 20,),
-                _freeResult(),
+                _freeResult(resultEntity),
 
                 SizedBox(height: 30,),
                 _paidResult(),
@@ -236,7 +261,7 @@ class _ResultPage extends State<ResultPage> {
     );
   }
 
-  Widget _freeResult(){
+  Widget _freeResult(ResultEntity resultEntity){
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: BoxDecoration(
@@ -273,7 +298,7 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('0.983223', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${resultEntity.resultH27}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
@@ -298,7 +323,7 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('0.9833', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${resultEntity.resultH28}', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
@@ -325,7 +350,7 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('2321', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${resultEntity.resultH30}', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
@@ -350,7 +375,7 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('4,223,213', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${resultEntity.resultH31}', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
@@ -376,7 +401,7 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('0.9833', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${resultEntity.resultH32}', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(

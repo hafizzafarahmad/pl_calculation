@@ -5,7 +5,7 @@ import 'package:pl_calculation/core/error/exception.dart';
 import 'package:pl_calculation/core/error/failures.dart';
 import 'package:pl_calculation/features/calculate/domain/entities/calculate_entity.dart';
 import 'package:pl_calculation/features/result/data/datasources/result_local_data_source.dart';
-import 'package:pl_calculation/features/result/data/models/list_notification_model.dart';
+import 'package:pl_calculation/features/result/data/models/result_model.dart';
 import 'package:pl_calculation/features/result/domain/repositories/result_repository.dart';
 
 class ResultRepositoryImpl implements ResultRepository{

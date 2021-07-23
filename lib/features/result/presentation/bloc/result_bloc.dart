@@ -10,7 +10,8 @@ class ResultBloc extends Bloc<ResultEvent, ResultState>{
   final GetResultUsecase? getResultUsecase;
   final SharedPreferences? sharedPreferences;
 
-  ResultBloc({this.getResultUsecase, this.sharedPreferences, }) : super(ResultInitializedState());
+
+  ResultBloc({this.getResultUsecase, this.sharedPreferences, }) : super(LoadingResultState());
 
   @override
   Stream<ResultState> mapEventToState(ResultEvent event) async* {
@@ -18,7 +19,14 @@ class ResultBloc extends Bloc<ResultEvent, ResultState>{
     if(event is GetResultEvent){
       yield LoadingResultState();
 
-      final result = await getResultUsecase!.call(event.calculateEntity);
+      final remote = await getResultUsecase!.call(
+          event.calculateEntity!);
+
+      yield* remote.fold((l) async* {
+        yield ErrorResultState('Terjadi kesalahan');
+      }, (r)async*{
+        yield ResultRetrievedState(resultEntity: r.data);
+      });
     }
   }
 
