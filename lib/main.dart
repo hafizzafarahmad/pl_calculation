@@ -8,6 +8,7 @@ import 'package:pigment/pigment.dart';
 import 'package:pl_calculation/features/calculate/domain/entities/calculate_entity.dart';
 import 'package:pl_calculation/features/listResult/presentation/bloc/list_result_bloc.dart';
 import 'package:pl_calculation/features/listResult/presentation/pages/list_result_page.dart';
+import 'package:pl_calculation/features/result/domain/entities/result_entity.dart';
 import 'package:pl_calculation/features/result/presentation/bloc/result_bloc.dart';
 
 import 'core/platform/colors.dart';
@@ -20,6 +21,7 @@ void main() async {
   var appDockumentDirectory = await pathProvider.getApplicationDocumentsDirectory();
   Hive.init(appDockumentDirectory.path);
   Hive.registerAdapter(CalculateEntityAdapter());
+  Hive.registerAdapter(ResultEntityAdapter());
 
   await di.init();
 

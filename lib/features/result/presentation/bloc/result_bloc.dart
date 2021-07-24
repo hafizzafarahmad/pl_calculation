@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pl_calculation/features/result/domain/usecase/get_result_usecase.dart';
 import 'package:pl_calculation/features/result/presentation/bloc/result_event.dart';
 import 'package:pl_calculation/features/result/presentation/bloc/result_state.dart';
+import 'package:pl_calculation/features/result/presentation/pages/index_result.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ResultBloc extends Bloc<ResultEvent, ResultState>{
@@ -18,6 +20,9 @@ class ResultBloc extends Bloc<ResultEvent, ResultState>{
 
     if(event is GetResultEvent){
       yield LoadingResultState();
+      Navigator.push(event.context!, MaterialPageRoute(builder: (context) => IndexResult(
+          calculateEntity: event.calculateEntity
+      )));
 
       final remote = await getResultUsecase!.call(
           event.calculateEntity!);

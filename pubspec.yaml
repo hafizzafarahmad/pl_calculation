@@ -71,8 +71,8 @@ dependencies:
   dotted_border: ^2.0.0
   #expanded
   expandable: ^5.0.1
-  excel: any
-  syncfusion_flutter_xlsio: ^19.2.46-beta
+  #generate uudi
+  uuid: ^3.0.4
 
 dev_dependencies:
   flutter_test:

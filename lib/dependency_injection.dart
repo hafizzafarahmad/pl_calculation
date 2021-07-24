@@ -5,7 +5,7 @@ import 'package:pl_calculation/features/listResult/data/datasources/list_result_
 import 'package:pl_calculation/features/listResult/domain/repositories/list_result_repository.dart';
 import 'package:pl_calculation/features/listResult/domain/usecase/get_list_result_usecase.dart';
 import 'package:pl_calculation/features/listResult/presentation/bloc/list_result_bloc.dart';
-import 'package:pl_calculation/features/result/data/datasources/result_local_data_source.dart';
+import 'package:pl_calculation/features/result/data/datasources/result_remote_data_source.dart';
 import 'package:pl_calculation/features/result/domain/repositories/result_repository.dart';
 import 'package:pl_calculation/features/result/domain/usecase/get_result_usecase.dart';
 import 'package:pl_calculation/features/result/presentation/bloc/result_bloc.dart';
@@ -36,15 +36,17 @@ Future<void> init() async {
   ///APP FEATURES
   sl.registerLazySingleton<ListResultRepository>(() =>
       ListResultRepositoryImpl(listResultRemoteDataSource: sl(),),);
+
   sl.registerLazySingleton<ResultRepository>(() =>
-      ResultRepositoryImpl(resultLocalDataSource: sl(),),);
+      ResultRepositoryImpl( resultRemoteDataSource: sl()),);
 
 
   ///-------------------------------DATA SOURCE---------------------------------
   sl.registerLazySingleton<ListResultRemoteDataSource>(
         () => ListResultRemoteDataSourceImpl());
-  sl.registerLazySingleton<ResultLocalDataSource>(
-          () => ResultLocalDataSourceImpl());
+  //result
+  sl.registerLazySingleton<ResultRemoteDataSource>(
+          () => ResultRemoteDataSourceImpl(client: sl()));
 
   //! Core
   // sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));

@@ -3,14 +3,18 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:pigment/pigment.dart';
+import 'package:pl_calculation/core/database/hive_database.dart';
 import 'package:pl_calculation/core/error/error_page.dart';
 import 'package:pl_calculation/core/platform/colors.dart';
 import 'package:pl_calculation/core/platform/component.dart';
+import 'package:pl_calculation/core/platform/format_currency.dart';
 import 'package:pl_calculation/core/platform/format_date.dart';
 import 'package:pl_calculation/core/platform/scroll_behavior.dart';
 import 'package:pl_calculation/features/calculate/domain/entities/calculate_entity.dart';
+import 'package:pl_calculation/features/listResult/presentation/pages/list_result_page.dart';
 import 'package:pl_calculation/features/result/domain/entities/result_entity.dart';
 import 'package:pl_calculation/features/result/presentation/bloc/result_bloc.dart';
 import 'package:pl_calculation/features/result/presentation/bloc/result_event.dart';
@@ -79,10 +83,17 @@ class _ResultPage extends State<ResultPage> {
           padding: EdgeInsets.symmetric(horizontal: 15,vertical: 20),
           child:  BlocBuilder<ResultBloc, ResultState>(
             builder: (context, state){
-              print(state);
+
               ///LoadingKontakState
-              if(state is LoadingResultState){
-                return Center(child: CircularProgressIndicator(),);
+              if(state is LoadingResultState  ){
+                return Center(child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(height: 5,),
+                    Text('Calculating...', style: TextStyle(color: Colors.black, fontFamily: 'PoppinsMedium'),),
+                  ],
+                ),);
               } else if (state is ResultRetrievedState){
                 return _mainBody(state.resultEntity!);
               } else if (state is ErrorResultState){
@@ -236,22 +247,41 @@ class _ResultPage extends State<ResultPage> {
                 SizedBox(height: 20,),
                 _freeResult(resultEntity),
 
-                SizedBox(height: 30,),
-                _paidResult(),
+                // SizedBox(height: 30,),
+                // _paidResult(),
+                //
+                // SizedBox(height: 50,),
+                // Center(
+                //   child: ElevatedButton(
+                //     child: Text('View Result Detail', style: TextStyle(fontSize: 16),),
+                //     style: ElevatedButton.styleFrom(
+                //         padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 10),
+                //         primary: Pigment.fromString(PRIMARY_COLOR),
+                //         shape: RoundedRectangleBorder(
+                //             borderRadius: BorderRadius.all(Radius.circular(10))
+                //         )
+                //     ),
+                //     onPressed: () {
+                //
+                //     },
+                //   ),
+                // ),
 
                 SizedBox(height: 50,),
                 Center(
                   child: ElevatedButton(
-                    child: Text('View Result Detail', style: TextStyle(fontSize: 16),),
+                    child: Text('Back to Menu', style: TextStyle(fontSize: 16),),
                     style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 10),
                         primary: Pigment.fromString(PRIMARY_COLOR),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10))
-                        )
+                        ),
                     ),
                     onPressed: () {
-
+                      Hive.deleteBoxFromDisk(BOX_CALCULATION);
+                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                          ListResultPage()), (Route<dynamic> route) => false);
                     },
                   ),
                 ),
@@ -263,6 +293,7 @@ class _ResultPage extends State<ResultPage> {
 
   Widget _freeResult(ResultEntity resultEntity){
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: 3),
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -270,7 +301,7 @@ class _ResultPage extends State<ResultPage> {
         boxShadow: <BoxShadow>[
           BoxShadow(
               color: Colors.black12,
-              blurRadius: 3.0,
+              blurRadius: 1.0,
               spreadRadius: 1.0,
               offset: Offset(0.0, 0.0)
           )
@@ -290,7 +321,7 @@ class _ResultPage extends State<ResultPage> {
                 child: Text('Fraction of Dry air', style: TextStyle(color: Colors.black, fontSize: 14,),),
               ),
               Expanded(
-                flex: 3,
+                flex: 4,
                 child:  Container(
                   decoration: BoxDecoration(
                       border: Border.all(),
@@ -298,11 +329,11 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${resultEntity.resultH27}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.resultH27!)}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
-                  flex: 3,
+                  flex: 2,
                   child: SizedBox()
               ),
 
@@ -316,19 +347,19 @@ class _ResultPage extends State<ResultPage> {
                 child: Text('Humidity Ratio', style: TextStyle(color: Colors.black, fontSize: 13,),),
               ),
               Expanded(
-                flex: 3,
+                flex: 4,
                 child:  Container(
                   decoration: BoxDecoration(
                     border: Border(left: BorderSide(), right: BorderSide(), bottom: BorderSide())
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${resultEntity.resultH28}', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.resultH28!)}', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
-                  flex: 3,
-                  child: Text('  lb h2O/lb dry air', style: TextStyle(color: Colors.black, fontSize: 11,),),
+                  flex: 2,
+                  child: Text('  lb h2O', style: TextStyle(color: Colors.black, fontSize: 11,),),
               ),
 
             ],
@@ -342,7 +373,7 @@ class _ResultPage extends State<ResultPage> {
                 child: Text('Fuel LHV', style: TextStyle(color: Colors.black, fontSize: 13,),),
               ),
               Expanded(
-                flex: 3,
+                flex: 4,
                 child:  Container(
                   decoration: BoxDecoration(
                       border: Border.all(),
@@ -350,11 +381,11 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${resultEntity.resultH30}', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.resultH30!)}', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
-                flex: 3,
+                flex: 2,
                 child: Text('  BTU/lb', style: TextStyle(color: Colors.black, fontSize: 11,),),
               ),
 
@@ -368,18 +399,18 @@ class _ResultPage extends State<ResultPage> {
                 child: Text('GT Exhaust Flow', style: TextStyle(color: Colors.black, fontSize: 13,),),
               ),
               Expanded(
-                flex: 3,
+                flex: 4,
                 child:  Container(
                   decoration: BoxDecoration(
                       border: Border(left: BorderSide(), right: BorderSide(), bottom: BorderSide())
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${resultEntity.resultH31}', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.resultH31!)}', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
-                flex: 3,
+                flex: 2,
                 child: Text('  lb/h', style: TextStyle(color: Colors.black, fontSize: 11,),),
               ),
 
@@ -393,7 +424,7 @@ class _ResultPage extends State<ResultPage> {
                 child: Text('GT Exhaust Enthalpy', style: TextStyle(color: Colors.black, fontSize: 13,),),
               ),
               Expanded(
-                flex: 3,
+                flex: 4,
                 child:  Container(
                   decoration: BoxDecoration(
                       border: Border(left: BorderSide(), right: BorderSide(), bottom: BorderSide()),
@@ -401,11 +432,11 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${resultEntity.resultH32}', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.resultH32!)}', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
-                flex: 3,
+                flex: 2,
                 child: Text('  Btu/lb', style: TextStyle(color: Colors.black, fontSize: 11,),),
               ),
 

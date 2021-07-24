@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:pigment/pigment.dart';
+import 'package:pl_calculation/core/error/error_no_data_page.dart';
 import 'package:pl_calculation/core/platform/colors.dart';
+import 'package:pl_calculation/core/platform/component.dart';
 import 'package:pl_calculation/core/platform/scroll_behavior.dart';
 import 'package:pl_calculation/features/calculate/presentation/pages/index_isi_calculate.dart';
 import 'package:pl_calculation/features/listResult/data/models/list_pengajuan_model.dart';
@@ -39,7 +41,7 @@ class _ListResultPage extends State<ListResultPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: Text('Result', style: TextStyle(color: Colors.black, fontFamily: 'PoppinsMedium'),),
+        title: Text('Heroku', style: TextStyle(color: Colors.black, fontFamily: 'PoppinsMedium'),),
       ),
       body: RefreshIndicator(
         onRefresh: (){
@@ -49,7 +51,14 @@ class _ListResultPage extends State<ListResultPage> {
           behavior: MyScrollBehavior(),
           child: SingleChildScrollView(
             physics: ClampingScrollPhysics(),
+            child: Container(
+              width: autoSizedWidth(context, 1),
+              height: autoSizedHeight(context, 0.75),
+              padding: EdgeInsets.symmetric(vertical: 30),
+              child: ErrorNoDataPage(messages: 'No Data Found', onTap: () {
 
+              },)
+              ,),
           ),
         ),
       ),

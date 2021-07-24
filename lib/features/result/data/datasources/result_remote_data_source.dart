@@ -7,7 +7,7 @@ import 'package:pl_calculation/features/calculate/domain/entities/calculate_enti
 import 'package:pl_calculation/features/result/data/models/result_model.dart';
 
 abstract class ResultRemoteDataSource{
-  Future<ResultModel> getResult(CalculateEntity calculateEntity);
+  Future<ResultModel> getResultData(CalculateEntity calculateEntity);
 }
 
 class ResultRemoteDataSourceImpl implements ResultRemoteDataSource{
@@ -16,57 +16,57 @@ class ResultRemoteDataSourceImpl implements ResultRemoteDataSource{
   ResultRemoteDataSourceImpl({this.client});
 
   @override
-  Future<ResultModel> getResult(CalculateEntity calculateEntity)  async {
+  Future<ResultModel> getResultData(CalculateEntity calculateEntity)  async {
     final tag = 'FREE RESULT';
+    final Response response;
 
     final url = RESULT_API;
+    print(double.parse(calculateEntity.exhaustOutletTemperature!.replaceAll(",", "")));
 
     print('$tag: $url');
     try{
-      final Response response = await client!.get(
+      response = await client!.get(
           url,
           queryParameters: {
-            "D7" : calculateEntity.barometricPressure,
-            "D8" : calculateEntity.inletDryBulbTemperature,
-            "D9" : calculateEntity.inletWetBulbTemperature,
-            "D10" : calculateEntity.inletRelativeHumidity,
-            "D13" : calculateEntity.gTFuelFlow,
-            "D14" : calculateEntity.fuelTemperature,
-            "D16" : calculateEntity.injectionSteamFlow,
-            "D17" : calculateEntity.temperature,
-            "D18" : calculateEntity.pressure,
-            "D19" : calculateEntity.phasaWaterSteam,
-            "D21" : calculateEntity.comprresorExtractionAir,
-            "D22" : calculateEntity.extractionAirTemperature,
-            "D24" : calculateEntity.refTemperatureEnthalpy,
-            "D25" : calculateEntity.exhaustOutletTemperature,
-            "D28" : calculateEntity.gTPowerOutput,
-            "D29" : calculateEntity.generatorLoss,
-            "D30" : calculateEntity.gearboxLoss,
-            "D31" : calculateEntity.fixedHeadLoss,
-            "D32" : calculateEntity.variableHeatLoss,
-
-            "H7" : calculateEntity.methane,
-            "H8" : calculateEntity.ethane,
-            "H9" : calculateEntity.propane,
-            "H10" : calculateEntity.iButane,
-            "H11" : calculateEntity.nButane,
-            "H12" : calculateEntity.iPetane,
-            "H13" : calculateEntity.nPetane,
-            "H14" : calculateEntity.hexane,
-            "H15" : calculateEntity.nitrogen,
-            "H16" : calculateEntity.carboneMonoxide,
-            "H17" : calculateEntity.carbonDioxide,
-            "H18" : calculateEntity.water,
-            "H19" : calculateEntity.hydrogenSulfide,
-            "H20" : calculateEntity.hydrogen,
-            "H21" : calculateEntity.helium,
-            "H22" : calculateEntity.oxygen,
-            "H23" : calculateEntity.argon,
+            "D7" : double.parse(calculateEntity.barometricPressure!.replaceAll(",", "")),
+            "D8" : double.parse(calculateEntity.inletDryBulbTemperature!.replaceAll(",", "")),
+            "D9" : double.parse(calculateEntity.inletWetBulbTemperature!.replaceAll(",", "")),
+            "D10" : double.parse(calculateEntity.inletRelativeHumidity!.replaceAll(",", "")),
+            "D13" : double.parse(calculateEntity.gTFuelFlow!.replaceAll(",", "")),
+            "D14" : double.parse(calculateEntity.fuelTemperature!.replaceAll(",", "")),
+            "D16" : double.parse(calculateEntity.injectionSteamFlow!.replaceAll(",", "")),
+            "D17" : double.parse(calculateEntity.temperature!.replaceAll(",", "")),
+            "D18" : double.parse(calculateEntity.pressure!.replaceAll(",", "")),
+            "D19" : double.parse(calculateEntity.phasaWaterSteam!.replaceAll(",", "")),
+            "D21" : double.parse(calculateEntity.comprresorExtractionAir!.replaceAll(",", "")),
+            "D22" : double.parse(calculateEntity.extractionAirTemperature!.replaceAll(",", "")),
+            "D24" : double.parse(calculateEntity.refTemperatureEnthalpy!.replaceAll(",", "")),
+            "D25" : double.parse(calculateEntity.exhaustOutletTemperature!.replaceAll(",", "")),
+            "D28" : double.parse(calculateEntity.gTPowerOutput!.replaceAll(",", "")),
+            "D29" : double.parse(calculateEntity.generatorLoss!.replaceAll(",", "")),
+            "D30" : double.parse(calculateEntity.gearboxLoss!.replaceAll(",", "")),
+            "D31" : double.parse(calculateEntity.fixedHeadLoss!.replaceAll(",", "")),
+            "D32" : double.parse(calculateEntity.variableHeatLoss!.replaceAll(",", "")),
+            "H7" : double.parse(calculateEntity.methane!.replaceAll(",", "")),
+            "H8" : double.parse(calculateEntity.ethane!.replaceAll(",", "")),
+            "H9" : double.parse(calculateEntity.propane!.replaceAll(",", "")),
+            "H10" : double.parse(calculateEntity.iButane!.replaceAll(",", "")),
+            "H11" : double.parse(calculateEntity.nButane!.replaceAll(",", "")),
+            "H12" : double.parse(calculateEntity.iPetane!.replaceAll(",", "")),
+            "H13" : double.parse(calculateEntity.nPetane!.replaceAll(",", "")),
+            "H14" : double.parse(calculateEntity.hexane!.replaceAll(",", "")),
+            "H15" : double.parse(calculateEntity.nitrogen!.replaceAll(",", "")),
+            "H16" : double.parse(calculateEntity.carboneMonoxide!.replaceAll(",", "")),
+            "H17" : double.parse(calculateEntity.carbonDioxide!.replaceAll(",", "")),
+            "H18" : double.parse(calculateEntity.water!.replaceAll(",", "")),
+            "H20" : double.parse(calculateEntity.hydrogen!.replaceAll(",", "")),
+            "H21" : double.parse(calculateEntity.helium!.replaceAll(",", "")),
+            "H22" : double.parse(calculateEntity.oxygen!.replaceAll(",", "")),
+            "H23" : double.parse(calculateEntity.argon!.replaceAll(",", "")),
           }
       );
-
       print('$tag: $response');
+      print('$tag: ${response.realUri}');
 
       if (response.data['code'] == 200){
         return ResultModel.fromJson(response.data);
@@ -76,6 +76,7 @@ class ResultRemoteDataSourceImpl implements ResultRemoteDataSource{
       }
     }on DioError catch(e){
       print('$tag: ${e.response}');
+      print('$tag: ${e.response!.realUri}');
       throw ServerException();
     }
   }
