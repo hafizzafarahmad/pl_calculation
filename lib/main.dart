@@ -13,6 +13,7 @@ import 'package:pl_calculation/features/result/presentation/bloc/result_bloc.dar
 
 import 'core/platform/colors.dart';
 import 'dependency_injection.dart';
+import 'features/splashScreen/presentation/pages/splash_screen_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,13 +45,13 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Gas Turbine Calculator',
+          title: 'Heroku',
           theme: ThemeData(
             primaryColor: Pigment.fromString(PRIMARY_COLOR),
             accentColor: Pigment.fromString(PRIMARY_COLOR),
             fontFamily: 'Poppins',
           ),
-          home: ListResultPage(),
+          home: SplashScreenPage(),
         ));
   }
 }

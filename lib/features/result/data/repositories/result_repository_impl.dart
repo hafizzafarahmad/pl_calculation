@@ -19,7 +19,7 @@ class ResultRepositoryImpl implements ResultRepository{
     try{
       final result = await resultRemoteDataSource!.getResultData(calculateEntity);
       return Right(result);
-    }on CacheException{
+    }on ServerException{
       return Left(ServerFailure());
     }
   }

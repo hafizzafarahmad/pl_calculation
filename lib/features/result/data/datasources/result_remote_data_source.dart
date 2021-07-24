@@ -75,9 +75,11 @@ class ResultRemoteDataSourceImpl implements ResultRemoteDataSource{
         throw ServerException();
       }
     }on DioError catch(e){
-      print('$tag: ${e.response}');
-      print('$tag: ${e.response!.realUri}');
+      // return ResultModel();
       throw ServerException();
+      // print('$tag: ${e.response}');
+      // print('$tag: ${e.response!.realUri}');
+
     }
   }
 

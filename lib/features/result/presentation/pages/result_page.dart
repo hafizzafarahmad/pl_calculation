@@ -52,7 +52,6 @@ class _ResultPage extends State<ResultPage> {
 
 
 
-
   @override
   void initState() {
     super.initState();
@@ -103,6 +102,7 @@ class _ResultPage extends State<ResultPage> {
                     padding: EdgeInsets.symmetric(vertical: 30),
                     child: ErrorPage(messages: state.messages, onTap: () {
                       // _onRefresh();
+                      context.read<ResultBloc>().add(GetResultEvent(context: context, calculateEntity: widget.calculateEntity));
                     },)
                 );
               } else {
@@ -313,12 +313,14 @@ class _ResultPage extends State<ResultPage> {
           Text('Result', style: TextStyle(color: Colors.black, fontSize: 16, fontFamily: 'PoppinsSemiBold'),),
           Divider(thickness: 1,),
           SizedBox(height: 10,),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
                 flex: 4,
-                child: Text('Fraction of Dry air', style: TextStyle(color: Colors.black, fontSize: 14,),),
+                child: Text('Fraction of Dry air', maxLines: 1,
+                  style: TextStyle(color: Colors.black, fontSize: autoSizedWidth(context, 0.031),),),
               ),
               Expanded(
                 flex: 4,
@@ -344,7 +346,8 @@ class _ResultPage extends State<ResultPage> {
             children: [
               Expanded(
                 flex: 4,
-                child: Text('Humidity Ratio', style: TextStyle(color: Colors.black, fontSize: 13,),),
+                child: Text('Humidity Ratio', maxLines: 1,
+                  style: TextStyle(color: Colors.black, fontSize: autoSizedWidth(context, 0.031),),),
               ),
               Expanded(
                 flex: 4,
@@ -354,7 +357,7 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${formattedCurrency(resultEntity.resultH28!)}', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.resultH28!)}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
@@ -370,7 +373,8 @@ class _ResultPage extends State<ResultPage> {
             children: [
               Expanded(
                 flex: 4,
-                child: Text('Fuel LHV', style: TextStyle(color: Colors.black, fontSize: 13,),),
+                child: Text('Fuel LHV', maxLines: 1,
+                  style: TextStyle(color: Colors.black, fontSize: autoSizedWidth(context, 0.031),),),
               ),
               Expanded(
                 flex: 4,
@@ -381,7 +385,7 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${formattedCurrency(resultEntity.resultH30!)}', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.resultH30!)}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
@@ -396,7 +400,8 @@ class _ResultPage extends State<ResultPage> {
             children: [
               Expanded(
                 flex: 4,
-                child: Text('GT Exhaust Flow', style: TextStyle(color: Colors.black, fontSize: 13,),),
+                child: Text('GT Exh Flow', maxLines: 1,
+                  style: TextStyle(color: Colors.black, fontSize: autoSizedWidth(context, 0.031),),),
               ),
               Expanded(
                 flex: 4,
@@ -406,7 +411,7 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${formattedCurrency(resultEntity.resultH31!)}', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.resultH31!)}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
@@ -421,7 +426,8 @@ class _ResultPage extends State<ResultPage> {
             children: [
               Expanded(
                 flex: 4,
-                child: Text('GT Exhaust Enthalpy', style: TextStyle(color: Colors.black, fontSize: 13,),),
+                child: Text('GT Exh Enthalpy', maxLines: 1,
+                  style: TextStyle(color: Colors.black, fontSize: autoSizedWidth(context, 0.031),),),
               ),
               Expanded(
                 flex: 4,

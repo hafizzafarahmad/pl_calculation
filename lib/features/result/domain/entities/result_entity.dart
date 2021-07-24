@@ -24,10 +24,10 @@ class ResultEntity {
       this.resultH32);
 
   ResultEntity.fromJson(Map<String, dynamic> json) {
-    resultH27 = json['result_h27'] is num ? json['result_h27'].toStringAsFixed(3) : "-";
-    resultH28 = json['result_h28'] is num ? json['result_h28'].toStringAsFixed(3) : "-";
-    resultH30 = json['result_h30'] is num ? json['result_h30'].toStringAsFixed(3) : "-";
-    resultH31 = json['result_h31'] is num ? json['result_h31'].toStringAsFixed(3) : "-";
-    resultH32 = json['result_h32'] is num ? json['result_h32'].toStringAsFixed(3) : "-";
+    resultH27 = json['result_h27'] is num ? json['result_h27'].toString() : "-";
+    resultH28 = json['result_h28'] is num ? json['result_h28'].toString() : "-";
+    resultH30 = json['result_h30'] is num ? json['result_h30'].toString() : "-";
+    resultH31 = json['result_h31'] is num ? json['result_h31'].toString() : "-";
+    resultH32 = json['result_h32'] is num ? json['result_h32'].toString() : "-";
   }
 }

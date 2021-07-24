@@ -20,9 +20,7 @@ class ResultBloc extends Bloc<ResultEvent, ResultState>{
 
     if(event is GetResultEvent){
       yield LoadingResultState();
-      Navigator.push(event.context!, MaterialPageRoute(builder: (context) => IndexResult(
-          calculateEntity: event.calculateEntity
-      )));
+
 
       final remote = await getResultUsecase!.call(
           event.calculateEntity!);
