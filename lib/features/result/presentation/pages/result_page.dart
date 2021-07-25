@@ -222,6 +222,8 @@ class _ResultPage extends State<ResultPage> {
                         SizedBox(height: 5,),
                         _inputtedDataText("Hexane", "${widget.calculateEntity!.hexane}   %"),
                         SizedBox(height: 5,),
+                        _inputtedDataText("Nitrogen", "${widget.calculateEntity!.nitrogen}   %"),
+                        SizedBox(height: 5,),
                         _inputtedDataText("Carbone Monoxide", "${widget.calculateEntity!.carboneMonoxide}   %"),
                         SizedBox(height: 5,),
                         _inputtedDataText("Carbon Dioxide", "${widget.calculateEntity!.carbonDioxide}   %"),
@@ -331,7 +333,7 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${formattedCurrency(resultEntity.resultH27!)}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.resultH27!)}${resultEntity.resultH27!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
@@ -357,7 +359,7 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${formattedCurrency(resultEntity.resultH28!)}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.resultH28!)}${resultEntity.resultH28!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
@@ -385,7 +387,7 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${formattedCurrency(resultEntity.resultH30!)}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.resultH30!)}${resultEntity.resultH30!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
@@ -411,7 +413,7 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${formattedCurrency(resultEntity.resultH31!)}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.resultH31!)}${resultEntity.resultH31!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
@@ -438,7 +440,7 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${formattedCurrency(resultEntity.resultH32!)}', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.resultH32!)}${resultEntity.resultH32!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(

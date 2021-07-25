@@ -247,9 +247,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "Psia", hint: "0.00"),
@@ -275,9 +275,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "F", hint: "0.00"),
@@ -303,9 +303,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "F", hint: "0.00"),
@@ -331,9 +331,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "%", hint: "0.00"),
@@ -376,9 +376,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "lb/hr", hint: "0.00"),
@@ -404,9 +404,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "F", hint: "0.00"),
@@ -432,9 +432,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "lb/hr", hint: "0.00"),
@@ -460,9 +460,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "F", hint: "0.00"),
@@ -488,9 +488,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "Psig", hint: "0.00"),
@@ -516,9 +516,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "", hint: "0.00"),
@@ -544,9 +544,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "lb/hr", hint: "0.00"),
@@ -572,9 +572,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "F", hint: "0.00"),
@@ -583,7 +583,7 @@ class _IsiDataPage extends State<IsiDataPage> {
 
                         ///Ref Temperature for Enthalpy
                         Text(
-                          'Inlet Relative Humidity',
+                          'Ref Temperature for Enthalpy',
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold
@@ -600,9 +600,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "F", hint: "0.00"),
@@ -629,9 +629,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "F", hint: "0.00"),
@@ -674,9 +674,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "MW", hint: "0.00"),
@@ -702,9 +702,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "MW", hint: "0.00"),
@@ -730,9 +730,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "MW", hint: "0.00"),
@@ -758,9 +758,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "MMBtu/h", hint: "0.00"),
@@ -786,9 +786,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                           onChanged: (val){
                             _saveData();
                           },
-                          inputFormatters: [
-                            ThousandsFormatter(allowFraction: true)
-                          ],
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "MMBtu/h", hint: "0.00"),
@@ -921,9 +921,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                 onChanged: (val){
                   _saveData();
                 },
-                inputFormatters: [
-                  ThousandsFormatter(allowFraction: true)
-                ],
+                // inputFormatters: [
+                //   ThousandsFormatter(allowFraction: true)
+                // ],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 decoration: inputStyle(context, suffixText: "%", hint: "0.00"),
@@ -959,9 +959,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                 onChanged: (val){
                   _saveData();
                 },
-                inputFormatters: [
-                  ThousandsFormatter(allowFraction: true)
-                ],
+                // inputFormatters: [
+                //   ThousandsFormatter(allowFraction: true)
+                // ],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 decoration: inputStyle(context, suffixText: "%", hint: "0.00"),
@@ -997,9 +997,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                 onChanged: (val){
                   _saveData();
                 },
-                inputFormatters: [
-                  ThousandsFormatter(allowFraction: true)
-                ],
+                // inputFormatters: [
+                //   ThousandsFormatter(allowFraction: true)
+                // ],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 decoration: inputStyle(context, suffixText: "%", hint: "0.00"),
@@ -1035,9 +1035,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                 onChanged: (val){
                   _saveData();
                 },
-                inputFormatters: [
-                  ThousandsFormatter(allowFraction: true)
-                ],
+                // inputFormatters: [
+                //   ThousandsFormatter(allowFraction: true)
+                // ],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 decoration: inputStyle(context, suffixText: "%", hint: "0.00"),
@@ -1073,9 +1073,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                 onChanged: (val){
                   _saveData();
                 },
-                inputFormatters: [
-                  ThousandsFormatter(allowFraction: true)
-                ],
+                // inputFormatters: [
+                //   ThousandsFormatter(allowFraction: true)
+                // ],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 decoration: inputStyle(context, suffixText: "%", hint: "0.00"),
@@ -1111,9 +1111,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                 onChanged: (val){
                   _saveData();
                 },
-                inputFormatters: [
-                  ThousandsFormatter(allowFraction: true)
-                ],
+                // inputFormatters: [
+                //   ThousandsFormatter(allowFraction: true)
+                // ],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 decoration: inputStyle(context, suffixText: "%", hint: "0.00"),
@@ -1149,9 +1149,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                 onChanged: (val){
                   _saveData();
                 },
-                inputFormatters: [
-                  ThousandsFormatter(allowFraction: true)
-                ],
+                // inputFormatters: [
+                //   ThousandsFormatter(allowFraction: true)
+                // ],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 decoration: inputStyle(context, suffixText: "%", hint: "0.00"),
@@ -1187,9 +1187,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                 onChanged: (val){
                   _saveData();
                 },
-                inputFormatters: [
-                  ThousandsFormatter(allowFraction: true)
-                ],
+                // inputFormatters: [
+                //   ThousandsFormatter(allowFraction: true)
+                // ],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 decoration: inputStyle(context, suffixText: "%", hint: "0.00"),
@@ -1225,9 +1225,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                 onChanged: (val){
                   _saveData();
                 },
-                inputFormatters: [
-                  ThousandsFormatter(allowFraction: true)
-                ],
+                // inputFormatters: [
+                //   ThousandsFormatter(allowFraction: true)
+                // ],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 decoration: inputStyle(context, suffixText: "%", hint: "0.00"),
@@ -1263,9 +1263,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                 onChanged: (val){
                   _saveData();
                 },
-                inputFormatters: [
-                  ThousandsFormatter(allowFraction: true)
-                ],
+                // inputFormatters: [
+                //   ThousandsFormatter(allowFraction: true)
+                // ],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 decoration: inputStyle(context, suffixText: "%", hint: "0.00"),
@@ -1301,9 +1301,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                 onChanged: (val){
                   _saveData();
                 },
-                inputFormatters: [
-                  ThousandsFormatter(allowFraction: true)
-                ],
+                // inputFormatters: [
+                //   ThousandsFormatter(allowFraction: true)
+                // ],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 decoration: inputStyle(context, suffixText: "%", hint: "0.00"),
@@ -1339,9 +1339,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                 onChanged: (val){
                   _saveData();
                 },
-                inputFormatters: [
-                  ThousandsFormatter(allowFraction: true)
-                ],
+                // inputFormatters: [
+                //   ThousandsFormatter(allowFraction: true)
+                // ],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 decoration: inputStyle(context, suffixText: "%", hint: "0.00"),
@@ -1377,9 +1377,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                 onChanged: (val){
                   _saveData();
                 },
-                inputFormatters: [
-                  ThousandsFormatter(allowFraction: true)
-                ],
+                // inputFormatters: [
+                //   ThousandsFormatter(allowFraction: true)
+                // ],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 decoration: inputStyle(context, suffixText: "%", hint: "0.00"),
@@ -1415,9 +1415,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                 onChanged: (val){
                   _saveData();
                 },
-                inputFormatters: [
-                  ThousandsFormatter(allowFraction: true)
-                ],
+                // inputFormatters: [
+                //   ThousandsFormatter(allowFraction: true)
+                // ],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 decoration: inputStyle(context, suffixText: "%", hint: "0.00"),
@@ -1453,9 +1453,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                 onChanged: (val){
                   _saveData();
                 },
-                inputFormatters: [
-                  ThousandsFormatter(allowFraction: true)
-                ],
+                // inputFormatters: [
+                //   ThousandsFormatter(allowFraction: true)
+                // ],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 decoration: inputStyle(context, suffixText: "%", hint: "0.00"),
@@ -1491,9 +1491,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                 onChanged: (val){
                   _saveData();
                 },
-                inputFormatters: [
-                  ThousandsFormatter(allowFraction: true)
-                ],
+                // inputFormatters: [
+                //   ThousandsFormatter(allowFraction: true)
+                // ],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 decoration: inputStyle(context, suffixText: "%", hint: "0.00"),
@@ -1529,9 +1529,9 @@ class _IsiDataPage extends State<IsiDataPage> {
                 onChanged: (val){
                   _saveData();
                 },
-                inputFormatters: [
-                  ThousandsFormatter(allowFraction: true)
-                ],
+                // inputFormatters: [
+                //   ThousandsFormatter(allowFraction: true)
+                // ],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 decoration: inputStyle(context, suffixText: "%", hint: "0.00"),
