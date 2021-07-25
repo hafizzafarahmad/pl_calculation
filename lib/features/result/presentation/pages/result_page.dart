@@ -1,6 +1,7 @@
 
 
 import 'package:expandable/expandable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
@@ -79,7 +80,8 @@ class _ResultPage extends State<ResultPage> {
         ),
         body: Container(
           height: autoSizedHeight(context, 1),
-          padding: EdgeInsets.symmetric(horizontal: 15,vertical: 20),
+          margin: EdgeInsets.only(top: 20),
+          padding: EdgeInsets.symmetric(horizontal: 15),
           child:  BlocBuilder<ResultBloc, ResultState>(
             builder: (context, state){
 
@@ -295,25 +297,24 @@ class _ResultPage extends State<ResultPage> {
 
   Widget _freeResult(ResultEntity resultEntity){
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 3),
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      // padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-              color: Colors.black12,
-              blurRadius: 1.0,
-              spreadRadius: 1.0,
-              offset: Offset(0.0, 0.0)
-          )
-        ],
+        // color: Colors.white,
+        // borderRadius: BorderRadius.all(Radius.circular(10)),
+        // boxShadow: <BoxShadow>[
+        //   BoxShadow(
+        //       color: Colors.black12,
+        //       blurRadius: 1.0,
+        //       spreadRadius: 1.0,
+        //       offset: Offset(0.0, 0.0)
+        //   )
+        // ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Result', style: TextStyle(color: Colors.black, fontSize: 16, fontFamily: 'PoppinsSemiBold'),),
-          Divider(thickness: 1,),
+          // Text('Result', style: TextStyle(color: Colors.black, fontSize: 16, fontFamily: 'PoppinsSemiBold'),),
+          // Divider(thickness: 1,),
           SizedBox(height: 10,),
 
           Row(
@@ -325,7 +326,7 @@ class _ResultPage extends State<ResultPage> {
                   style: TextStyle(color: Colors.black, fontSize: autoSizedWidth(context, 0.031),),),
               ),
               Expanded(
-                flex: 4,
+                flex: 5,
                 child:  Container(
                   decoration: BoxDecoration(
                       border: Border.all(),
@@ -349,10 +350,10 @@ class _ResultPage extends State<ResultPage> {
               Expanded(
                 flex: 4,
                 child: Text('Humidity Ratio', maxLines: 1,
-                  style: TextStyle(color: Colors.black, fontSize: autoSizedWidth(context, 0.031),),),
+                  style: TextStyle( color: Colors.black, fontSize: autoSizedWidth(context, 0.031),),),
               ),
               Expanded(
-                flex: 4,
+                flex: 5,
                 child:  Container(
                   decoration: BoxDecoration(
                     border: Border(left: BorderSide(), right: BorderSide(), bottom: BorderSide())
@@ -379,7 +380,7 @@ class _ResultPage extends State<ResultPage> {
                   style: TextStyle(color: Colors.black, fontSize: autoSizedWidth(context, 0.031),),),
               ),
               Expanded(
-                flex: 4,
+                flex: 5,
                 child:  Container(
                   decoration: BoxDecoration(
                       border: Border.all(),
@@ -406,7 +407,7 @@ class _ResultPage extends State<ResultPage> {
                   style: TextStyle(color: Colors.black, fontSize: autoSizedWidth(context, 0.031),),),
               ),
               Expanded(
-                flex: 4,
+                flex: 5,
                 child:  Container(
                   decoration: BoxDecoration(
                       border: Border(left: BorderSide(), right: BorderSide(), bottom: BorderSide())
@@ -432,7 +433,7 @@ class _ResultPage extends State<ResultPage> {
                   style: TextStyle(color: Colors.black, fontSize: autoSizedWidth(context, 0.031),),),
               ),
               Expanded(
-                flex: 4,
+                flex: 5,
                 child:  Container(
                   decoration: BoxDecoration(
                       border: Border(left: BorderSide(), right: BorderSide(), bottom: BorderSide()),
@@ -447,10 +448,17 @@ class _ResultPage extends State<ResultPage> {
                 flex: 2,
                 child: Text('  Btu/lb', style: TextStyle(color: Colors.black, fontSize: 11,),),
               ),
-
             ],
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: 40,),
+
+          Center(
+            child:  Image.asset(
+              'assets/diagram.png',
+              fit: BoxFit.cover,
+              width: autoSizedWidth(context, 0.9),
+            ),
+          )
         ],
       ),
     );
