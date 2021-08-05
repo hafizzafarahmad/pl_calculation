@@ -81,6 +81,7 @@ class ResultRemoteDataSourceImpl implements ResultRemoteDataSource{
       );
       print('$tag: ${formData.fields}');
       print('$tag: ${response.realUri}');
+      print('$tag: ${response.data}');
 
       if (response.data['code'] == 200){
         return ResultModel.fromJson(response.data);

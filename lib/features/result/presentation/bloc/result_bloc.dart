@@ -6,6 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:pl_calculation/core/database/hive_database.dart';
 import 'package:pl_calculation/core/platform/component.dart';
 import 'package:pl_calculation/features/listResult/domain/entities/list_result_entity.dart';
+import 'package:pl_calculation/features/listResult/presentation/bloc/list_result_event.dart';
 import 'package:pl_calculation/features/result/domain/usecase/get_result_usecase.dart';
 import 'package:pl_calculation/features/result/presentation/bloc/result_event.dart';
 import 'package:pl_calculation/features/result/presentation/bloc/result_state.dart';
@@ -51,8 +52,8 @@ class ResultBloc extends Bloc<ResultEvent, ResultState>{
         createdAt: DateTime.now().toString()
       ));
 
-      ScaffoldMessenger.of(event.context!)
-          .showSnackBar(SnackBar( content: Text("Data Saved"), duration: Duration(seconds: 1),) );
+      Navigator.pop(event.context!);
+      alertToast("Data Saved");
 
       await loadingDialog(event.context!).hide();
     }

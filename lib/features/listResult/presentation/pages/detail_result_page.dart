@@ -15,6 +15,7 @@ import 'package:pl_calculation/core/platform/format_currency.dart';
 import 'package:pl_calculation/core/platform/format_date.dart';
 import 'package:pl_calculation/core/platform/scroll_behavior.dart';
 import 'package:pl_calculation/core/widget/drop_down_widget.dart';
+import 'package:pl_calculation/features/listResult/domain/entities/list_result_entity.dart';
 import 'package:pl_calculation/features/listResult/presentation/bloc/list_result_bloc.dart';
 import 'package:pl_calculation/features/listResult/presentation/bloc/list_result_event.dart';
 import 'package:pl_calculation/features/result/domain/entities/calculate_entity.dart';
@@ -25,19 +26,16 @@ import 'package:pl_calculation/features/result/presentation/bloc/result_event.da
 import 'package:pl_calculation/features/result/presentation/bloc/result_state.dart';
 import 'package:pl_calculation/features/result/presentation/widgets/input_name_resdult_dialog.dart';
 
-typedef OnFinished<ParamsPasutri> = void Function(ParamsPasutri item);
-typedef OnBack<ParamsPasutri> = void Function(ParamsPasutri item);
+class DetailResultPage extends StatefulWidget  {
+  final ListResultEntity? listResultEntity;
 
-class ResultPage extends StatefulWidget  {
-  final CalculateEntity? calculateEntity;
-
-  const ResultPage({Key? key, this.calculateEntity }) : super(key: key);
+  const DetailResultPage({Key? key, this.listResultEntity }) : super(key: key);
 
   @override
-  _ResultPage createState() => _ResultPage();
+  _DetailResultPage createState() => _DetailResultPage();
 }
 
-class _ResultPage extends State<ResultPage> {
+class _DetailResultPage extends State<DetailResultPage> {
   bool imperial = false;
 
   _inputtedDataText(String title, String body){
@@ -55,8 +53,6 @@ class _ResultPage extends State<ResultPage> {
       ],
     );
   }
-
-
 
   @override
   void initState() {
@@ -87,36 +83,7 @@ class _ResultPage extends State<ResultPage> {
           height: autoSizedHeight(context, 1),
           margin: EdgeInsets.only(top: 20),
           padding: EdgeInsets.symmetric(horizontal: 15),
-          child:  BlocBuilder<ResultBloc, ResultState>(
-            builder: (context, state){
-
-              ///LoadingKontakState
-              if(state is LoadingResultState  ){
-                return Center(child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(),
-                    SizedBox(height: 5,),
-                    Text('Calculating...', style: TextStyle(color: Colors.black, fontFamily: 'PoppinsMedium'),),
-                  ],
-                ),);
-              } else if (state is ResultRetrievedState){
-                return _mainBody(state.resultEntity!);
-              } else if (state is ErrorResultState){
-                return Container(
-                    width: autoSizedWidth(context, 1),
-                    height: autoSizedHeight(context, 0.75),
-                    padding: EdgeInsets.symmetric(vertical: 30),
-                    child: ErrorPage(messages: state.messages, onTap: () {
-                      // _onRefresh();
-                      context.read<ResultBloc>().add(GetResultEvent(context: context, calculateEntity: widget.calculateEntity));
-                    },)
-                );
-              } else {
-                return Container();
-              }
-            },
-          ),
+          child:  _mainBody(widget.listResultEntity!.resultEntity!),
         )
 
 
@@ -131,6 +98,18 @@ class _ResultPage extends State<ResultPage> {
             physics: ClampingScrollPhysics(),
             child: Column(
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text('${widget.listResultEntity!.name}',
+                        style: TextStyle(color: Colors.black,fontFamily: 'PoppinsSemiBold', fontSize: 15, ),),
+                    )
+                  ],
+                ),
+                SizedBox(height: 10,),
+                Divider(thickness: 1,),
+                SizedBox(height: 10,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -157,13 +136,13 @@ class _ResultPage extends State<ResultPage> {
                         SizedBox(height: 5,),
                         Text("Ambient Condition", style: TextStyle(color: Colors.black, fontFamily: 'PoppinsSemiBold', fontSize: 14)),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Barometric Pressure", "${widget.calculateEntity!.barometricPressure}   Psia"),
+                        _inputtedDataText("Barometric Pressure", "${widget.listResultEntity!.calculateEntity!.barometricPressure}   Psia"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Inlet Dry Bulb Temperature", "${widget.calculateEntity!.inletDryBulbTemperature}   F"),
+                        _inputtedDataText("Inlet Dry Bulb Temperature", "${widget.listResultEntity!.calculateEntity!.inletDryBulbTemperature}   F"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Inlet Wet Bulb Temperature", "${widget.calculateEntity!.inletWetBulbTemperature}   F"),
+                        _inputtedDataText("Inlet Wet Bulb Temperature", "${widget.listResultEntity!.calculateEntity!.inletWetBulbTemperature}   F"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Inlet Relative Humidity", "${widget.calculateEntity!.inletRelativeHumidity}   %"),
+                        _inputtedDataText("Inlet Relative Humidity", "${widget.listResultEntity!.calculateEntity!.inletRelativeHumidity}   %"),
                         SizedBox(height: 5,),
 
                         SizedBox(height: 5,),
@@ -171,25 +150,25 @@ class _ResultPage extends State<ResultPage> {
                         SizedBox(height: 5,),
 
                         SizedBox(height: 5,),
-                        _inputtedDataText("GT Fuel Flow", "${widget.calculateEntity!.gTFuelFlow}   lb/hr"),
+                        _inputtedDataText("GT Fuel Flow", "${widget.listResultEntity!.calculateEntity!.gTFuelFlow}   lb/hr"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Fuel Temperature", "${widget.calculateEntity!.fuelTemperature}   F"),
+                        _inputtedDataText("Fuel Temperature", "${widget.listResultEntity!.calculateEntity!.fuelTemperature}   F"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Injection Steam Flow", "${widget.calculateEntity!.injectionSteamFlow}   lb/hr"),
+                        _inputtedDataText("Injection Steam Flow", "${widget.listResultEntity!.calculateEntity!.injectionSteamFlow}   lb/hr"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Temperature", "${widget.calculateEntity!.temperature}   F"),
+                        _inputtedDataText("Temperature", "${widget.listResultEntity!.calculateEntity!.temperature}   F"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Pressure", "${widget.calculateEntity!.pressure}   Psig"),
+                        _inputtedDataText("Pressure", "${widget.listResultEntity!.calculateEntity!.pressure}   Psig"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Phasa 0-water / 1-Steam", "${widget.calculateEntity!.phasaWaterSteam}"),
+                        _inputtedDataText("Phasa 0-water / 1-Steam", "${widget.listResultEntity!.calculateEntity!.phasaWaterSteam}"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Comprresor Extraction Air", "${widget.calculateEntity!.comprresorExtractionAir}   lb/hr"),
+                        _inputtedDataText("Comprresor Extraction Air", "${widget.listResultEntity!.calculateEntity!.comprresorExtractionAir}   lb/hr"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Extraction Air Temperature", "${widget.calculateEntity!.extractionAirTemperature}   F"),
+                        _inputtedDataText("Extraction Air Temperature", "${widget.listResultEntity!.calculateEntity!.extractionAirTemperature}   F"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Ref Temperature for Enthalpy", "${widget.calculateEntity!.refTemperatureEnthalpy}   F"),
+                        _inputtedDataText("Ref Temperature for Enthalpy", "${widget.listResultEntity!.calculateEntity!.refTemperatureEnthalpy}   F"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Exhaust Outlet Temperature", "${widget.calculateEntity!.exhaustOutletTemperature}   F"),
+                        _inputtedDataText("Exhaust Outlet Temperature", "${widget.listResultEntity!.calculateEntity!.exhaustOutletTemperature}   F"),
                         SizedBox(height: 5,),
 
                         SizedBox(height: 5,),
@@ -197,15 +176,15 @@ class _ResultPage extends State<ResultPage> {
                         SizedBox(height: 5,),
 
                         SizedBox(height: 5,),
-                        _inputtedDataText("GT Power Output", "${widget.calculateEntity!.gTPowerOutput}   MW"),
+                        _inputtedDataText("GT Power Output", "${widget.listResultEntity!.calculateEntity!.gTPowerOutput}   MW"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Generator Loss", "${widget.calculateEntity!.gearboxLoss}   MW"),
+                        _inputtedDataText("Generator Loss", "${widget.listResultEntity!.calculateEntity!.gearboxLoss}   MW"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Gearbox Loss", "${widget.calculateEntity!.gearboxLoss}   MW"),
+                        _inputtedDataText("Gearbox Loss", "${widget.listResultEntity!.calculateEntity!.gearboxLoss}   MW"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Fixed Head Loss", "${widget.calculateEntity!.fixedHeadLoss}   MMBtu/h"),
+                        _inputtedDataText("Fixed Head Loss", "${widget.listResultEntity!.calculateEntity!.fixedHeadLoss}   MMBtu/h"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Variable Heat Loss", "${widget.calculateEntity!.variableHeatLoss}   MMBtu/h"),
+                        _inputtedDataText("Variable Heat Loss", "${widget.listResultEntity!.calculateEntity!.variableHeatLoss}   MMBtu/h"),
                         SizedBox(height: 5,),
 
                         SizedBox(height: 5,),
@@ -213,39 +192,39 @@ class _ResultPage extends State<ResultPage> {
                         SizedBox(height: 5,),
 
                         SizedBox(height: 5,),
-                        _inputtedDataText("Methane", "${widget.calculateEntity!.methane}   %"),
+                        _inputtedDataText("Methane", "${widget.listResultEntity!.calculateEntity!.methane}   %"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Ethane", "${widget.calculateEntity!.ethane}   %"),
+                        _inputtedDataText("Ethane", "${widget.listResultEntity!.calculateEntity!.ethane}   %"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Propane", "${widget.calculateEntity!.propane}   %"),
+                        _inputtedDataText("Propane", "${widget.listResultEntity!.calculateEntity!.propane}   %"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("I-Butane", "${widget.calculateEntity!.iButane}   %"),
+                        _inputtedDataText("I-Butane", "${widget.listResultEntity!.calculateEntity!.iButane}   %"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("N-Butane", "${widget.calculateEntity!.nButane}   %"),
+                        _inputtedDataText("N-Butane", "${widget.listResultEntity!.calculateEntity!.nButane}   %"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("I-Petane", "${widget.calculateEntity!.iPetane}   %"),
+                        _inputtedDataText("I-Petane", "${widget.listResultEntity!.calculateEntity!.iPetane}   %"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("N-Petane", "${widget.calculateEntity!.nPetane}   %"),
+                        _inputtedDataText("N-Petane", "${widget.listResultEntity!.calculateEntity!.nPetane}   %"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Hexane", "${widget.calculateEntity!.hexane}   %"),
+                        _inputtedDataText("Hexane", "${widget.listResultEntity!.calculateEntity!.hexane}   %"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Nitrogen", "${widget.calculateEntity!.nitrogen}   %"),
+                        _inputtedDataText("Nitrogen", "${widget.listResultEntity!.calculateEntity!.nitrogen}   %"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Carbone Monoxide", "${widget.calculateEntity!.carboneMonoxide}   %"),
+                        _inputtedDataText("Carbone Monoxide", "${widget.listResultEntity!.calculateEntity!.carboneMonoxide}   %"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Carbon Dioxide", "${widget.calculateEntity!.carbonDioxide}   %"),
+                        _inputtedDataText("Carbon Dioxide", "${widget.listResultEntity!.calculateEntity!.carbonDioxide}   %"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Water", "${widget.calculateEntity!.water}   %"),
+                        _inputtedDataText("Water", "${widget.listResultEntity!.calculateEntity!.water}   %"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Hydrogen sulfide", "${widget.calculateEntity!.hydrogenSulfide}   %"),
+                        _inputtedDataText("Hydrogen sulfide", "${widget.listResultEntity!.calculateEntity!.hydrogenSulfide}   %"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Hydrogen", "${widget.calculateEntity!.hydrogen}   %"),
+                        _inputtedDataText("Hydrogen", "${widget.listResultEntity!.calculateEntity!.hydrogen}   %"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Helium", "${widget.calculateEntity!.helium}   %"),
+                        _inputtedDataText("Helium", "${widget.listResultEntity!.calculateEntity!.helium}   %"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Oxygen", "${widget.calculateEntity!.oxygen}   %"),
+                        _inputtedDataText("Oxygen", "${widget.listResultEntity!.calculateEntity!.oxygen}   %"),
                         SizedBox(height: 5,),
-                        _inputtedDataText("Argon", "${widget.calculateEntity!.argon}   %"),
+                        _inputtedDataText("Argon", "${widget.listResultEntity!.calculateEntity!.argon}   %"),
                         SizedBox(height: 5,),
 
                       ],
@@ -275,47 +254,6 @@ class _ResultPage extends State<ResultPage> {
                 //     },
                 //   ),
                 // ),
-                SizedBox(height: 50,),
-                Center(
-                  child: ElevatedButton(
-                    child: Text('Save Result', style: TextStyle(fontSize: 16, color: Pigment.fromString(PRIMARY_COLOR)),),
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 10),
-                      primary: Colors.white,
-                      side: BorderSide(color: Pigment.fromString(PRIMARY_COLOR)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                    ),
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (_) {
-                            return InputNameResultDialog(calculateEntity: widget.calculateEntity,
-                                resultEntity: resultEntity,);
-                          });
-                    },
-                  ),
-                ),
-                SizedBox(height: 10,),
-                Center(
-                  child: ElevatedButton(
-                    child: Text('Back to Menu', style: TextStyle(fontSize: 16),),
-                    style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 10),
-                        primary: Pigment.fromString(PRIMARY_COLOR),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10))
-                        ),
-                    ),
-                    onPressed: () {
-                      context.read<ListResultBloc>().add(GetListResultEvent());
-                      Hive.deleteBoxFromDisk(BOX_CALCULATION);
-                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                          ListResultPage()), (Route<dynamic> route) => false);
-                    },
-                  ),
-                ),
                 SizedBox(height: 50,),
               ],
             )

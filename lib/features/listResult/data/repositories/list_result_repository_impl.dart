@@ -18,7 +18,7 @@ class ListResultRepositoryImpl implements ListResultRepository{
     try{
       final result = await listResultLocalDataSource!.getCacheListResult();
       return Right(result);
-    }on ServerException{
+    }on CacheException{
       return Left(ServerFailure());
     }
   }

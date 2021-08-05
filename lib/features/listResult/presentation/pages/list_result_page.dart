@@ -15,6 +15,8 @@ import 'package:pl_calculation/features/auth/presentation/bloc/auth_event.dart';
 import 'package:pl_calculation/features/listResult/presentation/bloc/list_result_bloc.dart';
 import 'package:pl_calculation/features/listResult/presentation/bloc/list_result_event.dart';
 import 'package:pl_calculation/features/listResult/presentation/bloc/list_result_state.dart';
+import 'package:pl_calculation/features/listResult/presentation/pages/detail_result_page.dart';
+import 'package:pl_calculation/features/listResult/presentation/widgets/item_list_result_widget.dart';
 import 'package:pl_calculation/features/result/presentation/pages/index_isi_calculate.dart';
 
 class ListResultPage extends StatefulWidget {
@@ -98,13 +100,13 @@ class _ListResultPage extends State<ListResultPage> {
                   return listLoading(context);
                 } else if (state is ListResultRetrievedState){
                   return ListView.builder(
-                      padding: EdgeInsets.only(bottom: 100, top: 3),
+                      padding: EdgeInsets.only(bottom: 100, top: 15),
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       addAutomaticKeepAlives: true,
                       itemCount: state.listResult!.length,
                       itemBuilder: (context, i){
-                        return Container();
+                        return ItemListResultWidget(listResultEntity: state.listResult![i],);
                       }
                   );
                 } else if (state is ErrorDataNullListResultState){

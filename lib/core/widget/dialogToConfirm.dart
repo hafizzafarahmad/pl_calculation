@@ -56,7 +56,7 @@ void dialogToConfirm(BuildContext context,{message, GestureTapCallback? onTap}) 
                               Icon(Icons.close, size: MediaQuery.of(context).size.width*0.04,
                                 color: Colors.black,),
                               Text(
-                                '  Tidak',
+                                '  Cancel',
                                 style: TextStyle(
                                   fontSize: MediaQuery.of(context).size.width*0.04,
                                   color: Colors.black,
@@ -96,7 +96,7 @@ void dialogToConfirm(BuildContext context,{message, GestureTapCallback? onTap}) 
                               Icon(LineAwesomeIcons.check, size: MediaQuery.of(context).size.width*0.04,
                                 color: Colors.white,),
                               Text(
-                                '  Ya',
+                                '  Yes',
                                 style: TextStyle(
                                   fontSize: MediaQuery.of(context).size.width*0.04,
                                   color: Colors.white,

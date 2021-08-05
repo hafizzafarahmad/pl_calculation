@@ -19,3 +19,13 @@ class GetListResultEvent extends ListResultEvent{
   List<Object> get props => [context!,];
 }
 
+class DeleteListResultEvent extends ListResultEvent{
+  final BuildContext? context;
+  final String? name;
+
+  DeleteListResultEvent({this.context, this.name});
+
+  @override
+  List<Object> get props => [context!, name!];
+}
+

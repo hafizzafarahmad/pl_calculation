@@ -72,27 +72,27 @@ class ResultEntity {
         this.resultJ83});
 
   ResultEntity.fromJson(Map<String, dynamic> json) {
-    resultH27 = json['result_h27']?? "-";
-    resultH28 = json['result_h28']??"-";
-    resultH30 = json['result_h30']?? "-";
-    resultH31 = json['result_h31']?? "-";
-    resultH32 = json['result_h32']?? "-";
-    resultF67 = json['result_f67']?? "-";
-    resultF68 = json['result_f68']?? "-";
-    resultF69 = json['result_f69']?? "-";
-    resultF71 = json['result_f71']?? "-";
-    resultF72 = json['result_f72']?? "-";
-    resultF73 = json['result_f73']?? "-";
-    resultH62 = json['result_h62']?? "-";
-    resultH63 = json['result_h63']?? "-";
-    resultH65 = json['result_h65']?? "-";
-    resultH66 = json['result_h66']??"-";
-    resultJ77 = json['result_j77']??"-";
-    resultJ78 = json['result_j78']??"-";
-    resultJ79 = json['result_j79']??"-";
-    resultJ81 = json['result_j81']?? "-";
-    resultJ82 = json['result_j82']?? "-";
-    resultJ83 = json['result_j83']?? "-";
+    resultH27 = json['H27']?? "-";
+    resultH28 = json['H28']??"-";
+    resultH30 = json['H30']?? "-";
+    resultH31 = json['H31']?? "-";
+    resultH32 = json['H32']?? "-";
+    resultF67 = json['F67']?? "-";
+    resultF68 = json['F68']?? "-";
+    resultF69 = json['F69']?? "-";
+    resultF71 = json['F71']?? "-";
+    resultF72 = json['F72']?? "-";
+    resultF73 = json['F73']?? "-";
+    resultH62 = json['H62']?? "-";
+    resultH63 = json['H63']?? "-";
+    resultH65 = json['H65']?? "-";
+    resultH66 = json['H66']??"-";
+    resultJ77 = json['J77']??"-";
+    resultJ78 = json['J78']??"-";
+    resultJ79 = json['J79']??"-";
+    resultJ81 = json['J81']?? "-";
+    resultJ82 = json['J82']?? "-";
+    resultJ83 = json['J83']?? "-";
   }
 
   // ResultEntity.fromJson(Map<String, dynamic> json) {

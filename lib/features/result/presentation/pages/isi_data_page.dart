@@ -10,6 +10,8 @@ import 'package:pl_calculation/core/platform/colors.dart';
 import 'package:pl_calculation/core/platform/component.dart';
 import 'package:pl_calculation/core/platform/scroll_behavior.dart';
 import 'package:pl_calculation/core/styles/inputStyle.dart';
+import 'package:pl_calculation/features/listResult/presentation/bloc/list_result_bloc.dart';
+import 'package:pl_calculation/features/listResult/presentation/bloc/list_result_event.dart';
 import 'package:pl_calculation/features/result/domain/entities/calculate_entity.dart';
 import 'package:pl_calculation/features/result/presentation/bloc/result_bloc.dart';
 import 'package:pl_calculation/features/result/presentation/bloc/result_event.dart';
@@ -177,22 +179,25 @@ class _IsiDataPage extends State<IsiDataPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          title: Text('Calculation', style: TextStyle(color: Colors.black, fontFamily: 'PoppinsMedium'),),
-          leading: IconButton(
-            onPressed: (){
-              Navigator.pop(context);
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            centerTitle: true,
+            title: Text('Calculation', style: TextStyle(color: Colors.black, fontFamily: 'PoppinsMedium'),),
+            leading: IconButton(
+              onPressed: (){
+                _onBackPressed();
 
-            },
-            icon: Icon(LineAwesomeIcons.angle_left, color: Colors.black,),
+              },
+              icon: Icon(LineAwesomeIcons.angle_left, color: Colors.black,),
+            ),
           ),
-        ),
-        body: _mainBody()
+          body: _mainBody()
 
 
+      ),
     );
   }
 
@@ -1563,5 +1568,11 @@ class _IsiDataPage extends State<IsiDataPage> {
         SizedBox(height: 25,),
       ],
     );
+  }
+
+  Future<bool> _onBackPressed() async {
+    context.read<ListResultBloc>().add(GetListResultEvent());
+    Navigator.pop(context);
+    return true;
   }
 }

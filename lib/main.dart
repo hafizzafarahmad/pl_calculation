@@ -7,6 +7,7 @@ import 'package:pl_calculation/dependency_injection.dart' as di;
 import 'package:pigment/pigment.dart';
 import 'package:pl_calculation/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pl_calculation/features/auth/presentation/pages/index_auth.dart';
+import 'package:pl_calculation/features/listResult/domain/entities/list_result_entity.dart';
 import 'package:pl_calculation/features/result/domain/entities/calculate_entity.dart';
 import 'package:pl_calculation/features/listResult/presentation/bloc/list_result_bloc.dart';
 import 'package:pl_calculation/features/result/domain/entities/result_entity.dart';
@@ -23,6 +24,7 @@ void main() async {
   Hive.init(appDockumentDirectory.path);
   Hive.registerAdapter(CalculateEntityAdapter());
   Hive.registerAdapter(ResultEntityAdapter());
+  Hive.registerAdapter(ListResultEntityAdapter());
 
   await di.init();
 
