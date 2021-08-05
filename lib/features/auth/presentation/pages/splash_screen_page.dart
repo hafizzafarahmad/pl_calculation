@@ -9,8 +9,8 @@ class SplashScreenPage extends StatefulWidget {
 class _SplashScreenPage extends State<SplashScreenPage> {
 
   _onStart() async {
-    await Future.delayed(Duration(seconds: 3));
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ListResultPage()));
+    // await Future.delayed(Duration(seconds: 3));
+    // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ListResultPage()));
   }
 
   @override

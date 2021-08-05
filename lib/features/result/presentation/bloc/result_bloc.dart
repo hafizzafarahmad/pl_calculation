@@ -2,10 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
+import 'package:pl_calculation/core/database/hive_database.dart';
+import 'package:pl_calculation/core/platform/component.dart';
+import 'package:pl_calculation/features/listResult/domain/entities/list_result_entity.dart';
 import 'package:pl_calculation/features/result/domain/usecase/get_result_usecase.dart';
 import 'package:pl_calculation/features/result/presentation/bloc/result_event.dart';
 import 'package:pl_calculation/features/result/presentation/bloc/result_state.dart';
-import 'package:pl_calculation/features/result/presentation/pages/index_result.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ResultBloc extends Bloc<ResultEvent, ResultState>{
@@ -23,13 +26,35 @@ class ResultBloc extends Bloc<ResultEvent, ResultState>{
 
 
       final remote = await getResultUsecase!.call(
-          event.calculateEntity!);
+          ParamsCalculation(
+            context: event.context,
+            calculateEntity: event.calculateEntity!
+          ));
 
       yield* remote.fold((l) async* {
         yield ErrorResultState('Terjadi kesalahan');
       }, (r)async*{
         yield ResultRetrievedState(resultEntity: r.data);
       });
+    }
+
+    if(event is SaveResultEvent){
+      loadingDialog(event.context!).style(message: 'Saving...');
+      await loadingDialog(event.context!).show();
+
+      final box = await Hive.openBox(BOX_MENU_LIST_RESULT);
+
+      box.add(ListResultEntity(
+        calculateEntity: event.calculateEntity,
+        resultEntity: event.resultEntity,
+        name: event.name,
+        createdAt: DateTime.now().toString()
+      ));
+
+      ScaffoldMessenger.of(event.context!)
+          .showSnackBar(SnackBar( content: Text("Data Saved"), duration: Duration(seconds: 1),) );
+
+      await loadingDialog(event.context!).hide();
     }
   }
 

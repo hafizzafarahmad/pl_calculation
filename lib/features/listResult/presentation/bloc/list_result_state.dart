@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:pl_calculation/features/listResult/data/models/list_pengajuan_model.dart';
+import 'package:pl_calculation/features/listResult/domain/entities/list_result_entity.dart';
 
 @immutable
 abstract class ListResultState extends Equatable {
@@ -8,18 +8,15 @@ abstract class ListResultState extends Equatable {
   List<Object> get props => [];
 }
 
-class ListResultInitializedState extends ListResultState{}
-
 class ListResultRetrievedState extends ListResultState {
-  final ListResultModel? listResultModel;
+  final List<ListResultEntity>? listResult;
 
   ListResultRetrievedState(
-      {
-      this.listResultModel,});
+      {this.listResult});
 
 
   @override
-  List<Object> get props => [listResultModel!];
+  List<Object> get props => [listResult!];
 }
 
 class ErrorListResultState extends ListResultState {
@@ -34,7 +31,7 @@ class ErrorListResultState extends ListResultState {
   List<Object> get props => [messages];
 }
 
-class LoadingListResultState extends ListResultState {}
+class ErrorDataNullListResultState extends ListResultState {}
 
-class ListResultDataNullState extends ListResultState {}
+class LoadingListResultState extends ListResultState {}
 

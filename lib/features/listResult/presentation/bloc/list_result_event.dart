@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
+import 'package:pl_calculation/features/result/domain/entities/calculate_entity.dart';
+import 'package:pl_calculation/features/result/domain/entities/result_entity.dart';
 
 @immutable
 abstract class ListResultEvent extends Equatable {
@@ -8,12 +10,12 @@ abstract class ListResultEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ListResultInitializedEvent extends ListResultEvent{
-  final BuildContext context;
+class GetListResultEvent extends ListResultEvent{
+  final BuildContext? context;
 
-  ListResultInitializedEvent(this.context);
+  GetListResultEvent({this.context});
 
   @override
-  List<Object> get props => [context];
+  List<Object> get props => [context!,];
 }
 

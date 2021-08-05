@@ -6,6 +6,7 @@ import 'package:pigment/pigment.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'colors.dart';
+import '../customLibrary/custom_progress_dialog.dart';
 
 
 //Size Menyesuaikan Ukuran Lebar Layar
@@ -45,6 +46,11 @@ redAlertToast(String message){
 //HideKeyboard
 hideKeyboard(BuildContext context){
   FocusScope.of(context).requestFocus(new FocusNode());
+}
+
+//Loading
+loadingDialog(BuildContext context){
+  return CustomProgressDialog(context, type: CustomProgressDialogType.Normal);
 }
 
 Widget shimmerLine({double? width, double height = 15}){

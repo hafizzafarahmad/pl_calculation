@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pl_calculation/features/calculate/domain/entities/calculate_entity.dart';
+import 'package:pl_calculation/features/result/domain/entities/calculate_entity.dart';
 import 'result_page.dart';
 
 

@@ -72,26 +72,50 @@ class ResultEntity {
         this.resultJ83});
 
   ResultEntity.fromJson(Map<String, dynamic> json) {
-    resultH27 = json['result_h27'] is num ? json['result_h27'].toString() : "-";
-    resultH28 = json['result_h28'] is num ? json['result_h28'].toString() : "-";
-    resultH30 = json['result_h30'] is num ? json['result_h30'].toString() : "-";
-    resultH31 = json['result_h31'] is num ? json['result_h31'].toString() : "-";
-    resultH32 = json['result_h32'] is num ? json['result_h32'].toString() : "-";
-    resultF67 = json['result_f67'] is num ? json['result_f67'].toString() : "-";
-    resultF68 = json['result_f68'] is num ? json['result_f68'].toString() : "-";
-    resultF69 = json['result_f69'] is num ? json['result_f69'].toString() : "-";
-    resultF71 = json['result_f71'] is num ? json['result_f71'].toString() : "-";
-    resultF72 = json['result_f72']is num ? json['result_f72'].toString() : "-";
-    resultF73 = json['result_f73']is num ? json['result_f73'].toString() : "-";
-    resultH62 = json['result_h62']is num ? json['result_h62'].toString() : "-";
-    resultH63 = json['result_h63']is num ? json['result_h63'].toString() : "-";
-    resultH65 = json['result_h65']is num ? json['result_h65'].toString() : "-";
-    resultH66 = json['result_h66']is num ? json['result_h66'].toString() : "-";
-    resultJ77 = json['result_j77']is num ? json['result_j77'].toString() : "-";
-    resultJ78 = json['result_j78']is num ? json['result_j78'].toString() : "-";
-    resultJ79 = json['result_j79']is num ? json['result_j79'].toString() : "-";
-    resultJ81 = json['result_j81']is num ? json['result_j81'].toString() : "-";
-    resultJ82 = json['result_j82']is num ? json['result_j82'].toString() : "-";
-    resultJ83 = json['result_j83']is num ? json['result_j83'].toString() : "-";
+    resultH27 = json['result_h27']?? "-";
+    resultH28 = json['result_h28']??"-";
+    resultH30 = json['result_h30']?? "-";
+    resultH31 = json['result_h31']?? "-";
+    resultH32 = json['result_h32']?? "-";
+    resultF67 = json['result_f67']?? "-";
+    resultF68 = json['result_f68']?? "-";
+    resultF69 = json['result_f69']?? "-";
+    resultF71 = json['result_f71']?? "-";
+    resultF72 = json['result_f72']?? "-";
+    resultF73 = json['result_f73']?? "-";
+    resultH62 = json['result_h62']?? "-";
+    resultH63 = json['result_h63']?? "-";
+    resultH65 = json['result_h65']?? "-";
+    resultH66 = json['result_h66']??"-";
+    resultJ77 = json['result_j77']??"-";
+    resultJ78 = json['result_j78']??"-";
+    resultJ79 = json['result_j79']??"-";
+    resultJ81 = json['result_j81']?? "-";
+    resultJ82 = json['result_j82']?? "-";
+    resultJ83 = json['result_j83']?? "-";
   }
+
+  // ResultEntity.fromJson(Map<String, dynamic> json) {
+  //   resultH27 = json['result_h27'] is num ? json['result_h27'].toString() : "-";
+  //   resultH28 = json['result_h28'] is num ? json['result_h28'].toString() : "-";
+  //   resultH30 = json['result_h30'] is num ? json['result_h30'].toString() : "-";
+  //   resultH31 = json['result_h31'] is num ? json['result_h31'].toString() : "-";
+  //   resultH32 = json['result_h32'] is num ? json['result_h32'].toString() : "-";
+  //   resultF67 = json['result_f67'] is num ? json['result_f67'].toString() : "-";
+  //   resultF68 = json['result_f68'] is num ? json['result_f68'].toString() : "-";
+  //   resultF69 = json['result_f69'] is num ? json['result_f69'].toString() : "-";
+  //   resultF71 = json['result_f71'] is num ? json['result_f71'].toString() : "-";
+  //   resultF72 = json['result_f72']is num ? json['result_f72'].toString() : "-";
+  //   resultF73 = json['result_f73']is num ? json['result_f73'].toString() : "-";
+  //   resultH62 = json['result_h62']is num ? json['result_h62'].toString() : "-";
+  //   resultH63 = json['result_h63']is num ? json['result_h63'].toString() : "-";
+  //   resultH65 = json['result_h65']is num ? json['result_h65'].toString() : "-";
+  //   resultH66 = json['result_h66']is num ? json['result_h66'].toString() : "-";
+  //   resultJ77 = json['result_j77']is num ? json['result_j77'].toString() : "-";
+  //   resultJ78 = json['result_j78']is num ? json['result_j78'].toString() : "-";
+  //   resultJ79 = json['result_j79']is num ? json['result_j79'].toString() : "-";
+  //   resultJ81 = json['result_j81']is num ? json['result_j81'].toString() : "-";
+  //   resultJ82 = json['result_j82']is num ? json['result_j82'].toString() : "-";
+  //   resultJ83 = json['result_j83']is num ? json['result_j83'].toString() : "-";
+  // }
 }
