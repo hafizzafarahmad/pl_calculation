@@ -17,19 +17,25 @@ class ListResultEntityAdapter extends TypeAdapter<ListResultEntity> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ListResultEntity(
-      fields[0] as ResultEntity?,
-      fields[1] as CalculateEntity?,
+      resultEntity: fields[0] as ResultEntity?,
+      calculateEntity: fields[1] as CalculateEntity?,
+      name: fields[2] as String?,
+      createdAt: fields[3] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, ListResultEntity obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.resultEntity)
       ..writeByte(1)
-      ..write(obj.calculateEntity);
+      ..write(obj.calculateEntity)
+      ..writeByte(2)
+      ..write(obj.name)
+      ..writeByte(3)
+      ..write(obj.createdAt);
   }
 
   @override
