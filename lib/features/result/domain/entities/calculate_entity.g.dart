@@ -17,6 +17,7 @@ class CalculateEntityAdapter extends TypeAdapter<CalculateEntity> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return CalculateEntity(
+      enthalpy: fields[36] as String?,
       barometricPressure: fields[0] as String?,
       inletDryBulbTemperature: fields[1] as String?,
       inletWetBulbTemperature: fields[2] as String?,
@@ -59,7 +60,7 @@ class CalculateEntityAdapter extends TypeAdapter<CalculateEntity> {
   @override
   void write(BinaryWriter writer, CalculateEntity obj) {
     writer
-      ..writeByte(36)
+      ..writeByte(37)
       ..writeByte(0)
       ..write(obj.barometricPressure)
       ..writeByte(1)
@@ -131,7 +132,9 @@ class CalculateEntityAdapter extends TypeAdapter<CalculateEntity> {
       ..writeByte(34)
       ..write(obj.oxygen)
       ..writeByte(35)
-      ..write(obj.argon);
+      ..write(obj.argon)
+      ..writeByte(36)
+      ..write(obj.enthalpy);
   }
 
   @override
