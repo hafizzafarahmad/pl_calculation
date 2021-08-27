@@ -6,116 +6,151 @@ part 'result_entity.g.dart';
 @HiveType(typeId: TYPE_RESULT)
 class ResultEntity {
   @HiveField(0)
-  String? resultH27;
+  String? h28;
   @HiveField(1)
-  String? resultH28;
+  String? h29;
   @HiveField(2)
-  String? resultH30;
+  String? h31;
   @HiveField(3)
-  String? resultH31;
+  String? h32;
   @HiveField(4)
-  String? resultH32;
+  String? h33;
   @HiveField(5)
-  String? resultF67;
+  String? h62;
   @HiveField(6)
-  String? resultF68;
+  String? h63;
   @HiveField(7)
-  String? resultF69;
+  String? h64;
   @HiveField(8)
-  String? resultF71;
+  String? h66;
   @HiveField(9)
-  String? resultF72;
+  String? f67;
   @HiveField(10)
-  String? resultF73;
+  String? f68;
   @HiveField(11)
-  String? resultH62;
+  String? f69;
   @HiveField(12)
-  String? resultH63;
+  String? f72;
   @HiveField(13)
-  String? resultH65;
+  String? f73;
   @HiveField(14)
-  String? resultH66;
+  String? f74;
   @HiveField(15)
-  String? resultJ77;
+  String? j31;
   @HiveField(16)
-  String? resultJ78;
+  String? j32;
   @HiveField(17)
-  String? resultJ79;
+  String? j33;
   @HiveField(18)
-  String? resultJ81;
+  String? j71;
   @HiveField(19)
-  String? resultJ82;
+  String? j72;
   @HiveField(20)
-  String? resultJ83;
+  String? j73;
+  @HiveField(21)
+  String? j74;
+  @HiveField(22)
+  String? j75;
+  @HiveField(23)
+  String? j76;
+  @HiveField(24)
+  String? j77;
+  @HiveField(25)
+  String? j78;
+  @HiveField(26)
+  String? j79;
+  @HiveField(27)
+  String? j82;
+  @HiveField(28)
+  String? j83;
+  @HiveField(29)
+  String? j84;
+  @HiveField(30)
+  String? d82;
+  @HiveField(31)
+  String? d83;
+  @HiveField(32)
+  String? d84;
+  @HiveField(33)
+  String? j80;
+  @HiveField(34)
+  String? h67;
+
 
   ResultEntity(
-      {this.resultH27,
-        this.resultH28,
-        this.resultH30,
-        this.resultH31,
-        this.resultH32,
-        this.resultF67,
-        this.resultF68,
-        this.resultF69,
-        this.resultF71,
-        this.resultF72,
-        this.resultF73,
-        this.resultH62,
-        this.resultH63,
-        this.resultH65,
-        this.resultH66,
-        this.resultJ77,
-        this.resultJ78,
-        this.resultJ79,
-        this.resultJ81,
-        this.resultJ82,
-        this.resultJ83});
+      {this.h28,
+        this.h67,
+        this.h29,
+        this.j80,
+        this.h31,
+        this.h32,
+        this.h33,
+        this.h62,
+        this.h63,
+        this.h64,
+        this.h66,
+        this.f67,
+        this.f68,
+        this.f69,
+        this.f72,
+        this.f73,
+        this.f74,
+        this.j31,
+        this.j32,
+        this.j33,
+        this.j71,
+        this.j72,
+        this.j73,
+        this.j74,
+        this.j75,
+        this.j76,
+        this.j77,
+        this.j78,
+        this.j79,
+        this.j82,
+        this.j83,
+        this.j84,
+        this.d82,
+        this.d83,
+        this.d84});
 
   ResultEntity.fromJson(Map<String, dynamic> json) {
-    resultH27 = json['H27']?? "-";
-    resultH28 = json['H28']??"-";
-    resultH30 = json['H30']?? "-";
-    resultH31 = json['H31']?? "-";
-    resultH32 = json['H32']?? "-";
-    resultF67 = json['F67']?? "-";
-    resultF68 = json['F68']?? "-";
-    resultF69 = json['F69']?? "-";
-    resultF71 = json['F71']?? "-";
-    resultF72 = json['F72']?? "-";
-    resultF73 = json['F73']?? "-";
-    resultH62 = json['H62']?? "-";
-    resultH63 = json['H63']?? "-";
-    resultH65 = json['H65']?? "-";
-    resultH66 = json['H66']??"-";
-    resultJ77 = json['J77']??"-";
-    resultJ78 = json['J78']??"-";
-    resultJ79 = json['J79']??"-";
-    resultJ81 = json['J81']?? "-";
-    resultJ82 = json['J82']?? "-";
-    resultJ83 = json['J83']?? "-";
+    h28 = json['H28']?? "-";
+    h29 = json['H29']?? "-";
+    h31 = json['H31']?? "-";
+    h32 = json['H32']?? "-";
+    h33 = json['H33']?? "-";
+    h62 = json['H62']?? "-";
+    h63 = json['H63']?? "-";
+    h64 = json['H64']?? "-";
+    h66 = json['H66']?? "-";
+    f67 = json['F67']?? "-";
+    f68 = json['F68']?? "-";
+    f69 = json['F69']?? "-";
+    f72 = json['F72']?? "-";
+    f73 = json['F73']?? "-";
+    f74 = json['F74']?? "-";
+    j31 = json['J31']?? "-";
+    j32 = json['J32']?? "-";
+    j33 = json['J33']?? "-";
+    j71 = json['J71']?? "-";
+    j72 = json['J72']?? "-";
+    j73 = json['J73']?? "-";
+    j74 = json['J74']?? "-";
+    j75 = json['J75']?? "-";
+    j76 = json['J76']?? "-";
+    j77 = json['J77']?? "-";
+    j78 = json['J78']?? "-";
+    j79 = json['J79']?? "-";
+    j82 = json['J82']?? "-";
+    j83 = json['J83']?? "-";
+    j84 = json['J84']?? "-";
+    d82 = json['D82']?? "-";
+    d83 = json['D83']?? "-";
+    d84 = json['D84']?? "-";
+    j80 = json['D80']?? "-";
+    h67 = json['H67']?? "-";
   }
-
-  // ResultEntity.fromJson(Map<String, dynamic> json) {
-  //   resultH27 = json['result_h27'] is num ? json['result_h27'].toString() : "-";
-  //   resultH28 = json['result_h28'] is num ? json['result_h28'].toString() : "-";
-  //   resultH30 = json['result_h30'] is num ? json['result_h30'].toString() : "-";
-  //   resultH31 = json['result_h31'] is num ? json['result_h31'].toString() : "-";
-  //   resultH32 = json['result_h32'] is num ? json['result_h32'].toString() : "-";
-  //   resultF67 = json['result_f67'] is num ? json['result_f67'].toString() : "-";
-  //   resultF68 = json['result_f68'] is num ? json['result_f68'].toString() : "-";
-  //   resultF69 = json['result_f69'] is num ? json['result_f69'].toString() : "-";
-  //   resultF71 = json['result_f71'] is num ? json['result_f71'].toString() : "-";
-  //   resultF72 = json['result_f72']is num ? json['result_f72'].toString() : "-";
-  //   resultF73 = json['result_f73']is num ? json['result_f73'].toString() : "-";
-  //   resultH62 = json['result_h62']is num ? json['result_h62'].toString() : "-";
-  //   resultH63 = json['result_h63']is num ? json['result_h63'].toString() : "-";
-  //   resultH65 = json['result_h65']is num ? json['result_h65'].toString() : "-";
-  //   resultH66 = json['result_h66']is num ? json['result_h66'].toString() : "-";
-  //   resultJ77 = json['result_j77']is num ? json['result_j77'].toString() : "-";
-  //   resultJ78 = json['result_j78']is num ? json['result_j78'].toString() : "-";
-  //   resultJ79 = json['result_j79']is num ? json['result_j79'].toString() : "-";
-  //   resultJ81 = json['result_j81']is num ? json['result_j81'].toString() : "-";
-  //   resultJ82 = json['result_j82']is num ? json['result_j82'].toString() : "-";
-  //   resultJ83 = json['result_j83']is num ? json['result_j83'].toString() : "-";
-  // }
 }
+
+

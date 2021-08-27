@@ -1,10 +1,14 @@
 
 
+import 'dart:async';
+import 'dart:io';
+
 import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:pigment/pigment.dart';
 import 'package:pl_calculation/core/database/hive_database.dart';
@@ -14,7 +18,6 @@ import 'package:pl_calculation/core/platform/component.dart';
 import 'package:pl_calculation/core/platform/format_currency.dart';
 import 'package:pl_calculation/core/platform/format_date.dart';
 import 'package:pl_calculation/core/platform/scroll_behavior.dart';
-import 'package:pl_calculation/core/widget/drop_down_widget.dart';
 import 'package:pl_calculation/features/listResult/presentation/bloc/list_result_bloc.dart';
 import 'package:pl_calculation/features/listResult/presentation/bloc/list_result_event.dart';
 import 'package:pl_calculation/features/result/domain/entities/calculate_entity.dart';
@@ -24,6 +27,8 @@ import 'package:pl_calculation/features/result/presentation/bloc/result_bloc.dar
 import 'package:pl_calculation/features/result/presentation/bloc/result_event.dart';
 import 'package:pl_calculation/features/result/presentation/bloc/result_state.dart';
 import 'package:pl_calculation/features/result/presentation/widgets/input_name_resdult_dialog.dart';
+import 'package:in_app_purchase_android/billing_client_wrappers.dart';
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 
 typedef OnFinished<ParamsPasutri> = void Function(ParamsPasutri item);
 typedef OnBack<ParamsPasutri> = void Function(ParamsPasutri item);
@@ -39,6 +44,18 @@ class ResultPage extends StatefulWidget  {
 
 class _ResultPage extends State<ResultPage> {
   bool imperial = false;
+
+  List<String> _kProductIds = <String>[
+    "full_version_1"
+  ];
+
+  InAppPurchase _inAppPurchase = InAppPurchase.instance;
+  late StreamSubscription<List<PurchaseDetails>> _subscription;
+  List<ProductDetails> _products = [];
+  List<PurchaseDetails> _purchases = [];
+  bool _isAvailable = false;
+  bool _purchased = false;
+  String? _queryProductError;
 
   _inputtedDataText(String title, String body){
     return Row(
@@ -56,15 +73,138 @@ class _ResultPage extends State<ResultPage> {
     );
   }
 
+  Future<void> initStoreInfo() async {
+    final bool isAvailable = await _inAppPurchase.isAvailable();
+    setState(() {
+      _isAvailable = isAvailable;
+    });
 
+    if (!isAvailable) {
+      setState(() {
+        _isAvailable = isAvailable;
+        _products = [];
+        _purchases = [];
+      });
+      return;
+    }
+
+    ProductDetailsResponse productDetailResponse =
+    await _inAppPurchase.queryProductDetails(_kProductIds.toSet());
+    if (productDetailResponse.error != null) {
+      setState(() {
+        _queryProductError = productDetailResponse.error!.message;
+        _isAvailable = isAvailable;
+        _products = productDetailResponse.productDetails;
+        _purchases = [];
+      });
+      return;
+    }
+  }
+
+  _purcaseProcess()async{
+    PurchaseDetails? previousPurchase;
+    Map<String, PurchaseDetails> purchases =
+    Map.fromEntries(_purchases.map((PurchaseDetails purchase) {
+      if (purchase.pendingCompletePurchase) {
+        _inAppPurchase.completePurchase(purchase);
+      }
+      return MapEntry<String, PurchaseDetails>(purchase.productID, purchase);
+    }));
+
+    print("PRODUK ${_products.isNotEmpty}");
+
+    if(_products.isNotEmpty){
+      _products.map((ProductDetails productDetails){
+        previousPurchase = purchases[productDetails.id];
+
+        late PurchaseParam purchaseParam;
+        if (Platform.isAndroid) {
+          // NOTE: If you are making a subscription purchase/upgrade/downgrade, we recommend you to
+          // verify the latest status of you your subscription by using server side receipt validation
+          // and update the UI accordingly. The subscription purchase status shown
+          // inside the app may not be accurate.
+
+          purchaseParam = GooglePlayPurchaseParam(
+              productDetails: productDetails,
+              applicationUserName: null,
+              changeSubscriptionParam: null);
+
+        } else {
+          purchaseParam = PurchaseParam(
+            productDetails: productDetails,
+            applicationUserName: null,
+          );
+        }
+
+        _inAppPurchase.buyNonConsumable(
+            purchaseParam: purchaseParam);
+      });
+    } else {
+      alertToast("Product Not Found");
+    }
+
+  }
+
+  Future<bool> _verifyPurchase(PurchaseDetails purchaseDetails) {
+    // IMPORTANT!! Always verify a purchase before delivering the product.
+    // For the purpose of an example, we directly return true.
+    return Future<bool>.value(true);
+  }
+
+
+  void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) {
+    purchaseDetailsList.forEach((PurchaseDetails purchaseDetails) async {
+      if (purchaseDetails.status == PurchaseStatus.pending) {
+        print("STATUS PENDING");
+        alertToast("Purchase PENDING");
+      } else {
+        if (purchaseDetails.status == PurchaseStatus.error) {
+          print("STATUS ERROR");
+        } else if (purchaseDetails.status == PurchaseStatus.purchased) {
+          bool valid = await _verifyPurchase(purchaseDetails);
+          if (valid) {
+            print("STATUS VALID");
+            _purchased = true;
+            alertToast("Purchase Success");
+          } else {
+            print("STATUS INVALID");
+            alertToast("Purchase INVALID");
+            return;
+          }
+        }
+        if (Platform.isAndroid) {
+          if (purchaseDetails.productID == "full_version_1") {
+            final InAppPurchaseAndroidPlatformAddition androidAddition =
+            _inAppPurchase.getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+            await androidAddition.consumePurchase(purchaseDetails);
+          }
+        }
+        if (purchaseDetails.pendingCompletePurchase) {
+          await _inAppPurchase.completePurchase(purchaseDetails);
+        }
+      }
+    });
+  }
 
   @override
   void initState() {
+    final Stream<List<PurchaseDetails>> purchaseUpdated =
+        _inAppPurchase.purchaseStream;
+    _subscription = purchaseUpdated.listen((purchaseDetailsList) {
+      _listenToPurchaseUpdated(purchaseDetailsList);
+    }, onDone: () {
+      _subscription.cancel();
+    }, onError: (error) {
+      // handle error here.
+    });
+    initStoreInfo();
+
     super.initState();
   }
 
   @override
   void dispose() {
+    _subscription.cancel();
     super.dispose();
   }
 
@@ -85,7 +225,6 @@ class _ResultPage extends State<ResultPage> {
         ),
         body: Container(
           height: autoSizedHeight(context, 1),
-          margin: EdgeInsets.only(top: 20),
           padding: EdgeInsets.symmetric(horizontal: 15),
           child:  BlocBuilder<ResultBloc, ResultState>(
             builder: (context, state){
@@ -131,6 +270,7 @@ class _ResultPage extends State<ResultPage> {
             physics: ClampingScrollPhysics(),
             child: Column(
               children: [
+                SizedBox(height: 20,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -182,6 +322,8 @@ class _ResultPage extends State<ResultPage> {
                         _inputtedDataText("Pressure", "${widget.calculateEntity!.pressure}   Psig"),
                         SizedBox(height: 5,),
                         _inputtedDataText("Phasa 0-water / 1-Steam", "${widget.calculateEntity!.phasaWaterSteam}"),
+                        SizedBox(height: 5,),
+                        _inputtedDataText("Enthalpy", "${widget.calculateEntity!.enthalpy}"),
                         SizedBox(height: 5,),
                         _inputtedDataText("Comprresor Extraction Air", "${widget.calculateEntity!.comprresorExtractionAir}   lb/hr"),
                         SizedBox(height: 5,),
@@ -256,29 +398,32 @@ class _ResultPage extends State<ResultPage> {
                 SizedBox(height: 20,),
                 _freeResult(resultEntity),
 
-                // SizedBox(height: 30,),
-                // _paidResult(),
-                //
-                // SizedBox(height: 50,),
-                // Center(
-                //   child: ElevatedButton(
-                //     child: Text('View Result Detail', style: TextStyle(fontSize: 16),),
-                //     style: ElevatedButton.styleFrom(
-                //         padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 10),
-                //         primary: Pigment.fromString(PRIMARY_COLOR),
-                //         shape: RoundedRectangleBorder(
-                //             borderRadius: BorderRadius.all(Radius.circular(10))
-                //         )
-                //     ),
-                //     onPressed: () {
-                //
-                //     },
-                //   ),
-                // ),
+                SizedBox(height: 30,),
+                _paidResult(),
+
                 SizedBox(height: 50,),
                 Center(
                   child: ElevatedButton(
-                    child: Text('Save Result', style: TextStyle(fontSize: 16, color: Pigment.fromString(PRIMARY_COLOR)),),
+                    child: Text('View Result Detail', style: TextStyle(fontSize: 16),),
+                    style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 10),
+                        primary: Pigment.fromString(PRIMARY_COLOR),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10))
+                        )
+                    ),
+                    onPressed: () {
+
+                    },
+                  ),
+                ),
+                Text("can purchase    $_isAvailable", style: TextStyle(color: Colors.black, fontFamily: 'PoppinsSemiBold', fontSize: 14)),
+                Text("purchased    $_purchased", style: TextStyle(color: Colors.black, fontFamily: 'PoppinsSemiBold', fontSize: 14)),
+                SizedBox(height: 50,),
+                SizedBox(height: 30,),
+                Center(
+                  child: ElevatedButton(
+                    child: Text(_purchased ? "Purchased" : 'Upgrade Version', style: TextStyle(fontSize: 16, color: Pigment.fromString(PRIMARY_COLOR)),),
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 10),
                       primary: Colors.white,
@@ -288,35 +433,64 @@ class _ResultPage extends State<ResultPage> {
                       ),
                     ),
                     onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (_) {
-                            return InputNameResultDialog(calculateEntity: widget.calculateEntity,
-                                resultEntity: resultEntity,);
-                          });
+                      if(!_purchased){
+                        _purcaseProcess();
+                      }
+
+
                     },
                   ),
                 ),
-                SizedBox(height: 10,),
-                Center(
-                  child: ElevatedButton(
-                    child: Text('Back to Menu', style: TextStyle(fontSize: 16),),
-                    style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 10),
-                        primary: Pigment.fromString(PRIMARY_COLOR),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10))
+                SizedBox(height: 30,),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Center(
+                      child: ElevatedButton(
+                        child: FittedBox(
+                            child: Text('Save Result', style: TextStyle(fontSize: 15,
+                            color: Pigment.fromString(PRIMARY_COLOR)),),
                         ),
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                          primary: Colors.white,
+                          side: BorderSide(color: Pigment.fromString(PRIMARY_COLOR)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (_) {
+                                return InputNameResultDialog(calculateEntity: widget.calculateEntity,
+                                  resultEntity: resultEntity,);
+                              });
+                        },
+                      ),
                     ),
-                    onPressed: () {
-                      context.read<ListResultBloc>().add(GetListResultEvent());
-                      Hive.deleteBoxFromDisk(BOX_CALCULATION);
-                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                          ListResultPage()), (Route<dynamic> route) => false);
-                    },
-                  ),
+                    Center(
+                      child: ElevatedButton(
+                        child: FittedBox(child: Text('Back to Menu', style: TextStyle(fontSize: 15),),),
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                          primary: Pigment.fromString(PRIMARY_COLOR),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(10))
+                          ),
+                        ),
+                        onPressed: () {
+                          context.read<ListResultBloc>().add(GetListResultEvent());
+                          Hive.deleteBoxFromDisk(BOX_CALCULATION);
+                          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                              ListResultPage()), (Route<dynamic> route) => false);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 50,),
+                SizedBox(height: 30,),
               ],
             )
         )
@@ -362,7 +536,7 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${formattedCurrency(resultEntity.resultH27!)}${resultEntity.resultH27!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.h28!)}${resultEntity.h28!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
@@ -388,7 +562,7 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${formattedCurrency(resultEntity.resultH28!)}${resultEntity.resultH28!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.h29!)}${resultEntity.h29!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
@@ -416,7 +590,7 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${formattedCurrency(resultEntity.resultH30!)}${resultEntity.resultH30!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.h31!)}${resultEntity.h31!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
@@ -442,7 +616,7 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${formattedCurrency(resultEntity.resultH31!)}${resultEntity.resultH31!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.h32!)}${resultEntity.h32!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
@@ -469,7 +643,7 @@ class _ResultPage extends State<ResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${formattedCurrency(resultEntity.resultH32!)}${resultEntity.resultH32!.split(".").last}',
+                  child: Text('${formattedCurrency(resultEntity.h33!)}${resultEntity.h33!.split(".").last}',
                     style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
@@ -550,7 +724,7 @@ class _ResultPage extends State<ResultPage> {
                       children: [
                         Expanded(
                           flex: 2,
-                          child: Text('${formattedCurrency(resultEntity.resultH62!)}${resultEntity.resultH62!.split(".").last}',
+                          child: Text('${formattedCurrency(resultEntity.h63!)}${resultEntity.h63!.split(".").last}',
                             textAlign: TextAlign.right,
                             style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                         ),
@@ -566,7 +740,7 @@ class _ResultPage extends State<ResultPage> {
                       children: [
                         Expanded(
                           flex: 2,
-                          child: Text('${formattedCurrency(resultEntity.resultH63!)}${resultEntity.resultH63!.split(".").last}',
+                          child: Text('${formattedCurrency(resultEntity.h64!)}${resultEntity.h64!.split(".").last}',
                             textAlign: TextAlign.right,
                             style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                         ),
@@ -587,7 +761,7 @@ class _ResultPage extends State<ResultPage> {
                       children: [
                         Expanded(
                           flex: 2,
-                          child: Text('${formattedCurrency(resultEntity.resultH65!)}${resultEntity.resultH65!.split(".").last}',
+                          child: Text('${formattedCurrency(resultEntity.h66!)}${resultEntity.h66!.split(".").last}',
                             textAlign: TextAlign.right,
                             style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                         ),
@@ -603,7 +777,7 @@ class _ResultPage extends State<ResultPage> {
                       children: [
                         Expanded(
                           flex: 2,
-                          child: Text('${formattedCurrency(resultEntity.resultH66!)}${resultEntity.resultH66!.split(".").last}',
+                          child: Text('${formattedCurrency(resultEntity.h67!)}${resultEntity.h67!.split(".").last}',
                             textAlign: TextAlign.right,
                             style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                         ),
@@ -639,7 +813,7 @@ class _ResultPage extends State<ResultPage> {
                                 children: [
                                   Expanded(
                                     flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultF67!)}${resultEntity.resultF67!.split(".").last}',
+                                    child: Text('${formattedCurrency(resultEntity.f67!)}${resultEntity.f67!.split(".").last}',
                                       textAlign: TextAlign.right,
                                       style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                                   ),
@@ -655,7 +829,7 @@ class _ResultPage extends State<ResultPage> {
                                 children: [
                                   Expanded(
                                     flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultF68!)}${resultEntity.resultF68!.split(".").last}',
+                                    child: Text('${formattedCurrency(resultEntity.f68!)}${resultEntity.f68!.split(".").last}',
                                       textAlign: TextAlign.right,
                                       style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                                   ),
@@ -671,7 +845,7 @@ class _ResultPage extends State<ResultPage> {
                                 children: [
                                   Expanded(
                                     flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultF69!)}${resultEntity.resultF69!.split(".").last}',
+                                    child: Text('${formattedCurrency(resultEntity.f69!)}${resultEntity.f69!.split(".").last}',
                                       textAlign: TextAlign.right,
                                       style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                                   ),
@@ -692,7 +866,7 @@ class _ResultPage extends State<ResultPage> {
                                 children: [
                                   Expanded(
                                     flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultF71!)}${resultEntity.resultF71!.split(".").last}',
+                                    child: Text('${formattedCurrency(resultEntity.f72!)}${resultEntity.f72!.split(".").last}',
                                       textAlign: TextAlign.right,
                                       style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                                   ),
@@ -708,7 +882,7 @@ class _ResultPage extends State<ResultPage> {
                                 children: [
                                   Expanded(
                                     flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultF72!)}${resultEntity.resultF72!.split(".").last}',
+                                    child: Text('${formattedCurrency(resultEntity.f73!)}${resultEntity.f73!.split(".").last}',
                                       textAlign: TextAlign.right,
                                       style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                                   ),
@@ -724,7 +898,7 @@ class _ResultPage extends State<ResultPage> {
                                 children: [
                                   Expanded(
                                     flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultF73!)}${resultEntity.resultF73!.split(".").last}',
+                                    child: Text('${formattedCurrency(resultEntity.f74!)}${resultEntity.f74!.split(".").last}',
                                       textAlign: TextAlign.right,
                                       style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                                   ),
@@ -737,9 +911,6 @@ class _ResultPage extends State<ResultPage> {
                               ),
                             ],
                           ),
-
-
-
                         ],
                       ),
                     ),
@@ -757,7 +928,7 @@ class _ResultPage extends State<ResultPage> {
                                 children: [
                                   Expanded(
                                     flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultJ77!)}${resultEntity.resultJ77!.split(".").last}',
+                                    child: Text('${formattedCurrency(resultEntity.j78!)}${resultEntity.j78!.split(".").last}',
                                       textAlign: TextAlign.right,
                                       style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                                   ),
@@ -773,7 +944,7 @@ class _ResultPage extends State<ResultPage> {
                                 children: [
                                   Expanded(
                                     flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultJ78!)}${resultEntity.resultJ78!.split(".").last}',
+                                    child: Text('${formattedCurrency(resultEntity.j79!)}${resultEntity.j79!.split(".").last}',
                                       textAlign: TextAlign.right,
                                       style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                                   ),
@@ -789,7 +960,7 @@ class _ResultPage extends State<ResultPage> {
                                 children: [
                                   Expanded(
                                     flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultJ79!)}${resultEntity.resultJ79!.split(".").last}',
+                                    child: Text('${formattedCurrency(resultEntity.j80!)}${resultEntity.j80!.split(".").last}',
                                       textAlign: TextAlign.right,
                                       style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                                   ),
@@ -810,7 +981,7 @@ class _ResultPage extends State<ResultPage> {
                                 children: [
                                   Expanded(
                                     flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultJ81!)}${resultEntity.resultJ81!.split(".").last}',
+                                    child: Text('${formattedCurrency(resultEntity.j82!)}${resultEntity.j82!.split(".").last}',
                                       textAlign: TextAlign.right,
                                       style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                                   ),
@@ -826,7 +997,7 @@ class _ResultPage extends State<ResultPage> {
                                 children: [
                                   Expanded(
                                     flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultJ82!)}${resultEntity.resultJ82!.split(".").last}',
+                                    child: Text('${formattedCurrency(resultEntity.j83!)}${resultEntity.j83!.split(".").last}',
                                       textAlign: TextAlign.right,
                                       style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                                   ),
@@ -842,7 +1013,7 @@ class _ResultPage extends State<ResultPage> {
                                 children: [
                                   Expanded(
                                     flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultJ83!)}${resultEntity.resultJ83!.split(".").last}',
+                                    child: Text('${formattedCurrency(resultEntity.j84!)}${resultEntity.j84!.split(".").last}',
                                       textAlign: TextAlign.right,
                                       style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                                   ),

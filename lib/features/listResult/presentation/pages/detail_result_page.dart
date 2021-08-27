@@ -295,12 +295,12 @@ class _DetailResultPage extends State<DetailResultPage> {
                 flex: 5,
                 child:  Container(
                   decoration: BoxDecoration(
-                      border: Border.all(),
+                    border: Border.all(),
                     color: Pigment.fromString(BG_SELECT_PHOTO),
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${formattedCurrency(resultEntity.resultH27!)}${resultEntity.resultH27!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.h28!)}${resultEntity.h28!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
@@ -322,16 +322,16 @@ class _DetailResultPage extends State<DetailResultPage> {
                 flex: 5,
                 child:  Container(
                   decoration: BoxDecoration(
-                    border: Border(left: BorderSide(), right: BorderSide(), bottom: BorderSide())
+                      border: Border(left: BorderSide(), right: BorderSide(), bottom: BorderSide())
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${formattedCurrency(resultEntity.resultH28!)}${resultEntity.resultH28!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.h29!)}${resultEntity.h29!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
-                  flex: 2,
-                  child: Text('  lb h2O', style: TextStyle(color: Colors.black, fontSize: 11,),),
+                flex: 2,
+                child: Text('  lb h2O', style: TextStyle(color: Colors.black, fontSize: 11,),),
               ),
 
             ],
@@ -349,12 +349,12 @@ class _DetailResultPage extends State<DetailResultPage> {
                 flex: 5,
                 child:  Container(
                   decoration: BoxDecoration(
-                      border: Border.all(),
+                    border: Border.all(),
                     color: Pigment.fromString(BG_SELECT_PHOTO),
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${formattedCurrency(resultEntity.resultH30!)}${resultEntity.resultH30!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.h31!)}${resultEntity.h31!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
@@ -380,7 +380,7 @@ class _DetailResultPage extends State<DetailResultPage> {
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${formattedCurrency(resultEntity.resultH31!)}${resultEntity.resultH31!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                  child: Text('${formattedCurrency(resultEntity.h32!)}${resultEntity.h32!.split(".").last}', style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
               Expanded(
@@ -402,12 +402,12 @@ class _DetailResultPage extends State<DetailResultPage> {
                 flex: 5,
                 child:  Container(
                   decoration: BoxDecoration(
-                      border: Border(left: BorderSide(), right: BorderSide(), bottom: BorderSide()),
+                    border: Border(left: BorderSide(), right: BorderSide(), bottom: BorderSide()),
                     color: Pigment.fromString(BG_SELECT_PHOTO),
                   ),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  child: Text('${formattedCurrency(resultEntity.resultH32!)}${resultEntity.resultH32!.split(".").last}',
+                  child: Text('${formattedCurrency(resultEntity.h33!)}${resultEntity.h33!.split(".").last}',
                     style: TextStyle(color: Colors.black, fontSize: 13, fontFamily: 'PoppinsMedium'),),
                 ),
               ),
@@ -476,330 +476,327 @@ class _DetailResultPage extends State<DetailResultPage> {
           ),
 
           Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                (imperial) ?
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Text('${formattedCurrency(resultEntity.resultH62!)}${resultEntity.resultH62!.split(".").last}',
-                            textAlign: TextAlign.right,
-                            style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Text(' F', textAlign: TextAlign.left,
-                            style: TextStyle(color: Colors.black, fontSize: 14,),),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Text('${formattedCurrency(resultEntity.resultH63!)}${resultEntity.resultH63!.split(".").last}',
-                            textAlign: TextAlign.right,
-                            style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Text(' klb/h', textAlign: TextAlign.left,
-                            style: TextStyle(color: Colors.black, fontSize: 14,),),
-                        ),
-                      ],
-                    ),
-                  ],
-                ) :
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Text('${formattedCurrency(resultEntity.resultH65!)}${resultEntity.resultH65!.split(".").last}',
-                            textAlign: TextAlign.right,
-                            style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Text(' C', textAlign: TextAlign.left,
-                            style: TextStyle(color: Colors.black, fontSize: 14,),),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Text('${formattedCurrency(resultEntity.resultH66!)}${resultEntity.resultH66!.split(".").last}',
-                            textAlign: TextAlign.right,
-                            style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Text(' Ton/h', textAlign: TextAlign.left,
-                            style: TextStyle(color: Colors.black, fontSize: 14,),),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10,),
-                Image.asset(
-                  'assets/diagram.png',
-                  fit: BoxFit.cover,
-                  width: autoSizedWidth(context, 0.9),
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Column(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  (imperial) ?
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 10,),
-                          (imperial) ?
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultF67!)}${resultEntity.resultF67!.split(".").last}',
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(' Psia', textAlign: TextAlign.left,
-                                      style: TextStyle(color: Colors.black, fontSize: 14,),),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultF68!)}${resultEntity.resultF68!.split(".").last}',
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(' F', textAlign: TextAlign.left,
-                                      style: TextStyle(color: Colors.black, fontSize: 14,),),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultF69!)}${resultEntity.resultF69!.split(".").last}',
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(' klb/h', textAlign: TextAlign.left,
-                                      style: TextStyle(color: Colors.black, fontSize: 14,),),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ) :
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultF71!)}${resultEntity.resultF71!.split(".").last}',
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(' mBar', textAlign: TextAlign.left,
-                                      style: TextStyle(color: Colors.black, fontSize: 14,),),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultF72!)}${resultEntity.resultF72!.split(".").last}',
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(' C', textAlign: TextAlign.left,
-                                      style: TextStyle(color: Colors.black, fontSize: 14,),),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultF73!)}${resultEntity.resultF73!.split(".").last}',
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(' Ton/h', textAlign: TextAlign.left,
-                                      style: TextStyle(color: Colors.black, fontSize: 14,),),
-                                  ),
-                                ],
-                              ),
-                            ],
+                          Expanded(
+                            flex: 2,
+                            child: Text('${formattedCurrency(resultEntity.h63!)}${resultEntity.h63!.split(".").last}',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
                           ),
-
-
-
+                          Expanded(
+                            flex: 2,
+                            child: Text(' F', textAlign: TextAlign.left,
+                              style: TextStyle(color: Colors.black, fontSize: 14,),),
+                          ),
                         ],
                       ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Column(
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 10,),
-                          (imperial) ?
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultJ77!)}${resultEntity.resultJ77!.split(".").last}',
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(' F', textAlign: TextAlign.left,
-                                      style: TextStyle(color: Colors.black, fontSize: 14,),),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultJ78!)}${resultEntity.resultJ78!.split(".").last}',
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(' klb/h', textAlign: TextAlign.left,
-                                      style: TextStyle(color: Colors.black, fontSize: 14,),),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultJ79!)}${resultEntity.resultJ79!.split(".").last}',
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(' Btu/lb', textAlign: TextAlign.left,
-                                      style: TextStyle(color: Colors.black, fontSize: 14,),),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ) :
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultJ81!)}${resultEntity.resultJ81!.split(".").last}',
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(' C', textAlign: TextAlign.left,
-                                      style: TextStyle(color: Colors.black, fontSize: 14,),),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultJ82!)}${resultEntity.resultJ82!.split(".").last}',
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(' Ton/h', textAlign: TextAlign.left,
-                                      style: TextStyle(color: Colors.black, fontSize: 14,),),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text('${formattedCurrency(resultEntity.resultJ83!)}${resultEntity.resultJ83!.split(".").last}',
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(' kJ/kg', textAlign: TextAlign.left,
-                                      style: TextStyle(color: Colors.black, fontSize: 14,),),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )
+                          Expanded(
+                            flex: 2,
+                            child: Text('${formattedCurrency(resultEntity.h64!)}${resultEntity.h64!.split(".").last}',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Text(' klb/h', textAlign: TextAlign.left,
+                              style: TextStyle(color: Colors.black, fontSize: 14,),),
+                          ),
                         ],
                       ),
-                    )
-                  ],
-                )
-              ],
-            )
+                    ],
+                  ) :
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: Text('${formattedCurrency(resultEntity.h66!)}${resultEntity.h66!.split(".").last}',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Text(' C', textAlign: TextAlign.left,
+                              style: TextStyle(color: Colors.black, fontSize: 14,),),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: Text('${formattedCurrency(resultEntity.h67!)}${resultEntity.h67!.split(".").last}',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Text(' Ton/h', textAlign: TextAlign.left,
+                              style: TextStyle(color: Colors.black, fontSize: 14,),),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10,),
+                  Image.asset(
+                    'assets/diagram.png',
+                    fit: BoxFit.cover,
+                    width: autoSizedWidth(context, 0.9),
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          children: [
+                            SizedBox(height: 10,),
+                            (imperial) ?
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text('${formattedCurrency(resultEntity.f67!)}${resultEntity.f67!.split(".").last}',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(' Psia', textAlign: TextAlign.left,
+                                        style: TextStyle(color: Colors.black, fontSize: 14,),),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text('${formattedCurrency(resultEntity.f68!)}${resultEntity.f68!.split(".").last}',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(' F', textAlign: TextAlign.left,
+                                        style: TextStyle(color: Colors.black, fontSize: 14,),),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text('${formattedCurrency(resultEntity.f69!)}${resultEntity.f69!.split(".").last}',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(' klb/h', textAlign: TextAlign.left,
+                                        style: TextStyle(color: Colors.black, fontSize: 14,),),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ) :
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text('${formattedCurrency(resultEntity.f72!)}${resultEntity.f72!.split(".").last}',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(' mBar', textAlign: TextAlign.left,
+                                        style: TextStyle(color: Colors.black, fontSize: 14,),),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text('${formattedCurrency(resultEntity.f73!)}${resultEntity.f73!.split(".").last}',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(' C', textAlign: TextAlign.left,
+                                        style: TextStyle(color: Colors.black, fontSize: 14,),),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text('${formattedCurrency(resultEntity.f74!)}${resultEntity.f74!.split(".").last}',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(' Ton/h', textAlign: TextAlign.left,
+                                        style: TextStyle(color: Colors.black, fontSize: 14,),),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          children: [
+                            SizedBox(height: 10,),
+                            (imperial) ?
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text('${formattedCurrency(resultEntity.j78!)}${resultEntity.j78!.split(".").last}',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(' F', textAlign: TextAlign.left,
+                                        style: TextStyle(color: Colors.black, fontSize: 14,),),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text('${formattedCurrency(resultEntity.j79!)}${resultEntity.j79!.split(".").last}',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(' klb/h', textAlign: TextAlign.left,
+                                        style: TextStyle(color: Colors.black, fontSize: 14,),),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text('${formattedCurrency(resultEntity.j80!)}${resultEntity.j80!.split(".").last}',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(' Btu/lb', textAlign: TextAlign.left,
+                                        style: TextStyle(color: Colors.black, fontSize: 14,),),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ) :
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text('${formattedCurrency(resultEntity.j82!)}${resultEntity.j82!.split(".").last}',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(' C', textAlign: TextAlign.left,
+                                        style: TextStyle(color: Colors.black, fontSize: 14,),),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text('${formattedCurrency(resultEntity.j83!)}${resultEntity.j83!.split(".").last}',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(' Ton/h', textAlign: TextAlign.left,
+                                        style: TextStyle(color: Colors.black, fontSize: 14,),),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text('${formattedCurrency(resultEntity.j84!)}${resultEntity.j84!.split(".").last}',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(color: Colors.black, fontSize: 14, fontFamily: 'PoppinsMedium'),),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(' kJ/kg', textAlign: TextAlign.left,
+                                        style: TextStyle(color: Colors.black, fontSize: 14,),),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              )
           )
         ],
       ),

@@ -51,3 +51,56 @@ class LogoutUserEvent extends AuthEvent {
   List<Object> get props => [context];
 }
 
+
+class SendOTPEvent extends AuthEvent {
+  final String? kode;
+  final BuildContext? context;
+  final String? from;
+  final String? email;
+
+  SendOTPEvent(this.kode, this.context,this.from, this.email);
+
+  @override
+  List<Object> get props => [kode!, context!, from!, email!];
+}
+
+class ResendOTPEvent extends AuthEvent{
+  final BuildContext? context;
+  final String? email;
+
+  ResendOTPEvent(this.context, this.email);
+
+  @override
+  String toString() => 'ResendOTP';
+
+  @override
+  List<Object> get props => [email!, context!];
+}
+
+class ForgotPasswordEvent extends AuthEvent{
+  final BuildContext? context;
+  final String? email;
+
+  ForgotPasswordEvent(this.context, this.email);
+
+  @override
+  String toString() => 'ResendOTP';
+
+  @override
+  List<Object> get props => [email!, context!];
+}
+
+class ResetPasswordEvent extends AuthEvent{
+  final BuildContext? context;
+  final String? oldPassword;
+  final String? password;
+
+  ResetPasswordEvent(this.context, this.password, this.oldPassword);
+
+  @override
+  String toString() => 'ResendOTP';
+
+  @override
+  List<Object> get props => [password!, context!, oldPassword!];
+}
+

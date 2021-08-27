@@ -12,10 +12,10 @@ import 'package:pl_calculation/core/widget/dialogToConfirm.dart';
 import 'package:pl_calculation/core/widget/list_loading.dart';
 import 'package:pl_calculation/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pl_calculation/features/auth/presentation/bloc/auth_event.dart';
+import 'package:pl_calculation/features/auth/presentation/pages/reset_password_page.dart';
 import 'package:pl_calculation/features/listResult/presentation/bloc/list_result_bloc.dart';
 import 'package:pl_calculation/features/listResult/presentation/bloc/list_result_event.dart';
 import 'package:pl_calculation/features/listResult/presentation/bloc/list_result_state.dart';
-import 'package:pl_calculation/features/listResult/presentation/pages/detail_result_page.dart';
 import 'package:pl_calculation/features/listResult/presentation/widgets/item_list_result_widget.dart';
 import 'package:pl_calculation/features/result/presentation/pages/index_isi_calculate.dart';
 
@@ -56,6 +56,20 @@ class _ListResultPage extends State<ListResultPage> {
                 value: 0,
                 child: Row(
                   children: <Widget>[
+                    Icon(LineAwesomeIcons.key, size: 18, color: Colors.black, ),
+                    SizedBox(width: 5,),
+                    Text(
+                      "Change Password",
+                      style: TextStyle(
+                          color: Colors.black),
+                    ),
+                  ],
+                ),
+              ),
+              PopupMenuItem(
+                value: 1,
+                child: Row(
+                  children: <Widget>[
                     Icon(LineAwesomeIcons.alternate_sign_out, size: 18, color: Colors.black, ),
                     SizedBox(width: 5,),
                     Text(
@@ -74,11 +88,11 @@ class _ListResultPage extends State<ListResultPage> {
             offset: Offset(0, 0),
             onSelected: (value){
               if(value == 0){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPasswordPage()));
+              }else{
                 dialogToConfirm(context, message: 'Logout Account?', onTap: (){
                   context.read<AuthBloc>().add(LogoutUserEvent(context));
                 });
-              }else{
-
               }
             },
           ),

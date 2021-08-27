@@ -17,14 +17,16 @@ class LoginUsecase implements UseCase<LoginModel, ParamsLogin> {
 }
 
 class ParamsLogin extends Equatable {
+  final BuildContext? context;
   final String? email;
   final String? password;
 
   ParamsLogin({
     @required this.email,
     @required this.password,
+    this.context
   });
 
   @override
-  List<Object> get props => [ email!,password!];
+  List<Object> get props => [ email!,password!, context!];
 }

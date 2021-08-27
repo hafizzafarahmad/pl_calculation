@@ -47,6 +47,7 @@ class _IsiDataPage extends State<IsiDataPage> {
   var _extAirTempInput = TextEditingController();
   var _refTempInput = TextEditingController();
   var _exhOutTempInput = TextEditingController();
+  var _enthalpyInput = TextEditingController();
 
   var _gtPowerOutInput = TextEditingController();
   var _genLossInput = TextEditingController();
@@ -527,6 +528,33 @@ class _IsiDataPage extends State<IsiDataPage> {
                           keyboardType: TextInputType.number,
                           decoration: inputStyle(context, suffixText: "", hint: "0.00"),
                         ),
+                        SizedBox(height: 10,),
+
+                        Text(
+                          'Enthalpy',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+                        SizedBox(height: 5,),
+                        TextFormField(
+                          controller: _enthalpyInput,
+                          validator: (val){
+                            if(val!.isEmpty){
+                              return "Enthalpy cannot be blank";
+                            }
+                          },
+                          onChanged: (val){
+                            _saveData();
+                          },
+                          // inputFormatters: [
+                          //   ThousandsFormatter(allowFraction: true)
+                          // ],
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.number,
+                          decoration: inputStyle(context, suffixText: "Btu/lb", hint: "0.00"),
+                        ),
                         SizedBox(height: 30,),
 
                         ///Comprresor Extraction Air
@@ -833,6 +861,7 @@ class _IsiDataPage extends State<IsiDataPage> {
                                   gearboxLoss: _gearLossInput.text,
                                   fixedHeadLoss: _fixedHeadLossInput.text,
                                   variableHeatLoss: _varHeatLossInput.text,
+                                  enthalpy: _enthalpyInput.text,
 
                                   methane: _methaneInput.text,
                                   ethane: _ethaneInput.text,

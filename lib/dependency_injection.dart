@@ -3,7 +3,11 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pl_calculation/features/auth/data/datasources/auth_local_data_source.dart';
 import 'package:pl_calculation/features/auth/domain/repositories/auth_repository.dart';
+import 'package:pl_calculation/features/auth/domain/usecase/forgot_password_usecase.dart';
 import 'package:pl_calculation/features/auth/domain/usecase/login_usecase.dart';
+import 'package:pl_calculation/features/auth/domain/usecase/resend_otp_usecase.dart';
+import 'package:pl_calculation/features/auth/domain/usecase/reset_password_usecase.dart';
+import 'package:pl_calculation/features/auth/domain/usecase/send_otp_usecase.dart';
 import 'package:pl_calculation/features/auth/domain/usecase/send_register_new_account_usecase.dart';
 import 'package:pl_calculation/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pl_calculation/features/listResult/data/datasources/list_result_local_data_source.dart';
@@ -41,8 +45,12 @@ Future<void> init() async {
   sl.registerFactory(() => AuthBloc(
     sendRegisterNewAccountUsecase: sl(),
     loginUsecase: sl(),
+    sendOTPUsecase: sl(),
+    resendOtpUsecase: sl(),
     sharedPreferences: sl(),
-    permissionChecker: sl()
+    permissionChecker: sl(),
+    forgotPasswordUsecase: sl(),
+    resetPasswordUsecase: sl()
   ));
 
   ///-------------------------------USE CASE----------------------------------
@@ -52,6 +60,10 @@ Future<void> init() async {
   ///AUTH
   sl.registerLazySingleton(() => SendRegisterNewAccountUsecase(sl()));
   sl.registerLazySingleton(() => LoginUsecase(sl()));
+  sl.registerLazySingleton(() => SendOTPUsecase(sl()));
+  sl.registerLazySingleton(() => ResendOtpUsecase(sl()));
+  sl.registerLazySingleton(() => ForgotPasswordUsecase(sl()));
+  sl.registerLazySingleton(() => ResetPasswordUsecase(sl()));
 
   ///-------------------------------REPOSITORY----------------------------------
   ///APP FEATURES

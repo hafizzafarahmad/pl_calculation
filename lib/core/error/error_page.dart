@@ -28,6 +28,7 @@ class ErrorPage extends StatelessWidget {
             )
             ),
 
+            (onTap != null) ?
             GestureDetector(
               onTap: onTap,
               child: Row(
@@ -46,7 +47,7 @@ class ErrorPage extends StatelessWidget {
                   )
                 ],
               ),
-            ),
+            ) : SizedBox(),
           ],
         ),
       )

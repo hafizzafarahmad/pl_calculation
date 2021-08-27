@@ -77,9 +77,12 @@ class CalculateEntity{
   String? oxygen;
   @HiveField(35)
   String? argon;
+  @HiveField(36)
+  String? enthalpy;
 
 
   CalculateEntity({
+    this.enthalpy,
     this.barometricPressure,
     this.inletDryBulbTemperature,
     this.inletWetBulbTemperature,

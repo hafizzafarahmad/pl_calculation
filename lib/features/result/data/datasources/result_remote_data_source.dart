@@ -1,11 +1,13 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:pl_calculation/core/error/error_handler.dart';
 import 'package:pl_calculation/core/error/exception.dart';
 import 'package:pl_calculation/core/network/api_endpoint.dart';
 import 'package:pl_calculation/core/network/sp_database.dart';
 import 'package:pl_calculation/core/platform/component.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pl_calculation/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:pl_calculation/features/auth/presentation/bloc/auth_event.dart';
 import 'package:pl_calculation/features/result/domain/entities/calculate_entity.dart';
 import 'package:pl_calculation/features/result/data/models/result_model.dart';
 import 'package:pl_calculation/features/result/domain/usecase/get_result_usecase.dart';
@@ -43,15 +45,19 @@ class ResultRemoteDataSourceImpl implements ResultRemoteDataSource{
       "input[D17]" : double.parse(paramsCalculation.calculateEntity!.temperature!.replaceAll(",", "")),
       "input[D18]" : double.parse(paramsCalculation.calculateEntity!.pressure!.replaceAll(",", "")),
       "input[D19]" : double.parse(paramsCalculation.calculateEntity!.phasaWaterSteam!.replaceAll(",", "")),
-      "input[D21]" : double.parse(paramsCalculation.calculateEntity!.comprresorExtractionAir!.replaceAll(",", "")),
-      "input[D22]" : double.parse(paramsCalculation.calculateEntity!.extractionAirTemperature!.replaceAll(",", "")),
-      "input[D24]" : double.parse(paramsCalculation.calculateEntity!.refTemperatureEnthalpy!.replaceAll(",", "")),
-      "input[D25]" : double.parse(paramsCalculation.calculateEntity!.exhaustOutletTemperature!.replaceAll(",", "")),
-      "input[D28]" : double.parse(paramsCalculation.calculateEntity!.gTPowerOutput!.replaceAll(",", "")),
-      "input[D29]" : double.parse(paramsCalculation.calculateEntity!.generatorLoss!.replaceAll(",", "")),
-      "input[D30]" : double.parse(paramsCalculation.calculateEntity!.gearboxLoss!.replaceAll(",", "")),
-      "input[D31]" : double.parse(paramsCalculation.calculateEntity!.fixedHeadLoss!.replaceAll(",", "")),
-      "input[D32]" : double.parse(paramsCalculation.calculateEntity!.variableHeatLoss!.replaceAll(",", "")),
+      "input[D20]" : double.parse(paramsCalculation.calculateEntity!.enthalpy!.replaceAll(",", "")),
+
+      "input[D22]" : double.parse(paramsCalculation.calculateEntity!.comprresorExtractionAir!.replaceAll(",", "")),
+      "input[D23]" : double.parse(paramsCalculation.calculateEntity!.extractionAirTemperature!.replaceAll(",", "")),
+      "input[D25]" : double.parse(paramsCalculation.calculateEntity!.refTemperatureEnthalpy!.replaceAll(",", "")),
+      "input[D26]" : double.parse(paramsCalculation.calculateEntity!.exhaustOutletTemperature!.replaceAll(",", "")),
+      "input[D29]" : double.parse(paramsCalculation.calculateEntity!.gTPowerOutput!.replaceAll(",", "")),
+      "input[D30]" : double.parse(paramsCalculation.calculateEntity!.generatorLoss!.replaceAll(",", "")),
+      "input[D31]" : double.parse(paramsCalculation.calculateEntity!.gearboxLoss!.replaceAll(",", "")),
+      "input[D32]" : double.parse(paramsCalculation.calculateEntity!.fixedHeadLoss!.replaceAll(",", "")),
+      "input[D33]" : double.parse(paramsCalculation.calculateEntity!.variableHeatLoss!.replaceAll(",", "")),
+
+
       "input[H7]" : double.parse(paramsCalculation.calculateEntity!.methane!.replaceAll(",", "")),
       "input[H8]" : double.parse(paramsCalculation.calculateEntity!.ethane!.replaceAll(",", "")),
       "input[H9]" : double.parse(paramsCalculation.calculateEntity!.propane!.replaceAll(",", "")),
@@ -86,14 +92,14 @@ class ResultRemoteDataSourceImpl implements ResultRemoteDataSource{
       if (response.data['code'] == 200){
         return ResultModel.fromJson(response.data);
       } else {
-        alertToast(response.data['messages']);
+        alertToast(response.data['message']);
         throw ServerException();
       }
     }on DioError catch(e){
       print('$tag: ${formData.fields}');
       // return ResultModel();
       if(e.response != null && e.response?.statusCode == 401){
-        Navigator.pop(paramsCalculation.context!);
+        paramsCalculation.context!.read<AuthBloc>().add(LogoutUserEvent(paramsCalculation.context!));
         alertToast('Token Expire');
         throw ServerException();
       }else{

@@ -11,6 +11,7 @@ import 'package:pl_calculation/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pl_calculation/features/auth/presentation/bloc/auth_event.dart';
 import 'package:pl_calculation/features/auth/presentation/bloc/auth_state.dart';
 import 'package:pl_calculation/features/auth/presentation/pages/register_page.dart';
+import 'package:pl_calculation/features/auth/presentation/pages/verif_email_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -66,7 +67,7 @@ class _LoginPage extends State<LoginPage> {
                           width: 180,
                         ),
                         Text(
-                          'Engine Calculation',
+                          'Engineer Calculation',
                           style: TextStyle(
                             fontSize: 24,
                             color: Pigment.fromString(PRIMARY_COLOR),
@@ -142,8 +143,8 @@ class _LoginPage extends State<LoginPage> {
                             InkWell(
                               onTap: (){
                                 hideKeyboard(context);
-                                // Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                                //     VerifHpPage(title: "Lupa Password",)));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                                    VerifEmailPage()));
                               },
                               child: Text(
                                 'Forgot Password?',
@@ -174,6 +175,7 @@ class _LoginPage extends State<LoginPage> {
                                   context.read<AuthBloc>().add(LoginUserEvent(
                                       context,
                                       ParamsLogin(
+                                        context: context,
                                           email: _emailInput.text,
                                           password: _passwordInput.text)));
                                 }
@@ -229,6 +231,14 @@ class _LoginPage extends State<LoginPage> {
                               ),
                             )
                           ],
+                        ),
+                        SizedBox(height: 40,),
+                        Text(
+                          'v6',
+                          style: TextStyle(
+                            fontSize: 12,
+                          ),
+                          textAlign: TextAlign.center,
                         )
                       ],
                     ),

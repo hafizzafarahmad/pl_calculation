@@ -12,6 +12,7 @@ import 'package:pl_calculation/features/result/domain/entities/calculate_entity.
 import 'package:pl_calculation/features/listResult/presentation/bloc/list_result_bloc.dart';
 import 'package:pl_calculation/features/result/domain/entities/result_entity.dart';
 import 'package:pl_calculation/features/result/presentation/bloc/result_bloc.dart';
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 
 import 'core/platform/colors.dart';
 import 'dependency_injection.dart';
@@ -19,6 +20,7 @@ import 'dependency_injection.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  InAppPurchaseAndroidPlatformAddition.enablePendingPurchases();
 
   var appDockumentDirectory = await pathProvider.getApplicationDocumentsDirectory();
   Hive.init(appDockumentDirectory.path);
@@ -48,7 +50,7 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Engine Calculation',
+          title: 'Engineer calculation',
           theme: ThemeData(
             primaryColor: Pigment.fromString(PRIMARY_COLOR),
             accentColor: Pigment.fromString(PRIMARY_COLOR),
